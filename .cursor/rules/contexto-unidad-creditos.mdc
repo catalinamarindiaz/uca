@@ -17,14 +17,18 @@ Financiera chilena de **crédito automotriz**, especializada en **crédito entre
 - **Anti-fraude**: reforzar que el sitio oficial es **unidadcreditos.cl** y que "UNIDAD® nunca pide transferencias de dinero". Existe alerta CMF por el sitio fraudulento `creditosunidad.com` (NO es UNIDAD); nunca confundirlos.
 - **Diferenciador a defender**: entre particulares + pie bajo (20%) + plazo largo (60m) + sin acreditar ingresos + transferencia en 1 día + seguridad.
 
-## Dónde está la información
-- `knowledge-base/` → empresa, productos, personas, competencia, fuentes, estrategia, SEO.
-- `agents/` → fichas de los agentes de growth (cómo ejecutarlos). `agents/fuentes.yaml` lista fuentes y su estado.
-- `scripts/trends_cl.py` → tendencias de búsqueda de Chile.
+## Estructura del repo (dónde está la información)
+- `00-contexto/` → empresa, productos, buyer-personas.
+- `01-inteligencia-mercado/` → competencia, fuentes-de-datos, y `outputs/` (entregables de agentes).
+- `02-estrategia/` → growth-strategy, seo-keywords-clusters, lead-capture-playbook.
+- `03-contenido/` → `briefs/` y `articulos/` (entregables de contenido).
+- `04-conectores/` → capa de datos vivos: `mcp-registry.yaml`, `google-trends.md`, `fuentes.yaml`, `scripts/trends_cl.py`.
+- `05-agentes/` → fichas de los agentes de growth (cómo ejecutarlos).
 
 ## Herramientas (MCP)
 - `skalling-wordpress` ✅ activo (sitio agencia: Divi, WPForms, Rank Math). **No** es el sitio de UNIDAD (parece Wix).
 - `gtm` y `clickup` → requieren autenticación antes de usarse.
+- Google Trends (trendsmcp.ai) → por añadir; ver `04-conectores/google-trends.md` y `.cursor/mcp.example.json`.
 
 ## Al generar contenido o análisis
-Cita fuente y fecha. Conecta cada recomendación con un producto o cluster SEO (`knowledge-base/07-seo-keywords-clusters.md`). Guarda entregables en `knowledge-base/outputs/`.
+Cita fuente y fecha. Conecta cada recomendación con un producto o cluster SEO (`02-estrategia/seo-keywords-clusters.md`). Guarda inteligencia en `01-inteligencia-mercado/outputs/` y contenido en `03-contenido/`.

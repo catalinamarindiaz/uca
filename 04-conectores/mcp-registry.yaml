@@ -1,0 +1,52 @@
+# Inventario de servidores MCP del proyecto Unidad Creditos
+# estado: activo | autenticar | por_anadir
+# Actualizado: 2026-06-08
+
+mcps:
+  - id: trends
+    nombre: Google Trends (trendsmcp.ai)
+    estado: por_anadir
+    endpoint: https://api.trendsmcp.ai/mcp
+    auth: API key (free tier 100 req/mes) - registrarse en https://trendsmcp.ai
+    herramientas:
+      - get_trends        # serie temporal de un keyword
+      - get_growth        # crecimiento % 1W/1M/3M/6M/1Y
+      - get_top_trends    # que es tendencia ahora
+      - get_ranked_trends # top topics por volumen
+    usado_por: [agente-01-research-tendencias, agente-02-seo-contenidos]
+    notas: Reemplaza a pytrends (archivado). Da volumen absoluto + JSON. Ver google-trends.md
+
+  - id: skalling-wordpress
+    nombre: WordPress skalling.com
+    estado: activo
+    auth: ya conectado
+    herramientas_clave:
+      - rank-math/audit-site-seo
+      - skalling/list-pages
+      - wpforms/search-entries   # lectura de leads desde formularios
+      - skalling/get-divi-layout
+    usado_por: [agente-02-seo-contenidos, agente-lead-ops]
+    notas: Sitio de la AGENCIA (skalling.com), no del cliente Unidad (que es Wix).
+
+  - id: gtm
+    nombre: Google Tag Manager
+    estado: autenticar
+    auth: ejecutar mcp_auth para 'user-gtm'
+    usado_para: tracking de eventos de conversion (simulador, WhatsApp, formularios)
+    usado_por: [agente-analitica-conversion, lead-capture-playbook]
+
+  - id: clickup
+    nombre: ClickUp
+    estado: autenticar
+    auth: ejecutar mcp_auth para 'user-clickup'
+    usado_para: backlog de growth y calendario editorial
+    usado_por: [agente-01-research-tendencias, agente-02-seo-contenidos]
+
+# MCP candidatos a evaluar a futuro (no instalados)
+candidatos:
+  - nombre: Meta/Google Ads MCP
+    motivo: leer campañas y costo por lead si se activan Ads
+  - nombre: Google Business Profile / Reviews MCP
+    motivo: gestionar resenas (prueba social) del agente 04-social
+  - nombre: Google Analytics (GA4) MCP
+    motivo: leer embudo real de conversion del sitio del cliente

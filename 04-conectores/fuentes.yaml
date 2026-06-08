@@ -8,7 +8,7 @@ trends:
     url: https://trends.google.com/trending/rss?geo=CL
     estado: ok
     metodo: rss
-    script: scripts/trends_cl.py
+    script: 04-conectores/scripts/trends_cl.py
     notas: Tendencias diarias de búsqueda. No da curva por keyword.
   - id: google_trends_keyword
     nombre: Google Trends - interés por keyword

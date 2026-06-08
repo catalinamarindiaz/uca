@@ -32,4 +32,4 @@
 - Cambios normativos (Ley Silla, restricción vehicular, permiso de circulación, UTM/multas).
 - Marzo/fin de año: liquidez (aguinaldos, devolución de impuestos) → picos de compra de auto.
 
-> Vincular estos momentos con el agente de Research de Tendencias (`agents/01-research-tendencias.md`).
+> Vincular estos momentos con el agente de Research de Tendencias (`../05-agentes/01-research-tendencias.md`).

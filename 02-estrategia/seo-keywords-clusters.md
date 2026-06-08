@@ -64,4 +64,4 @@
 3. Cluster 3 (FAQ prepago/prenda) — 5–8 páginas de ayuda.
 4. Cluster 4 — 2 guías de modelos con mejor búsqueda.
 
-> El agente de SEO/Contenidos (`agents/02-seo-contenidos.md`) toma estos clusters como backlog.
+> El agente de SEO/Contenidos (`../05-agentes/02-seo-contenidos.md`) toma estos clusters como backlog.

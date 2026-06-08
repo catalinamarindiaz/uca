@@ -7,9 +7,9 @@ Lee el feed RSS de tendencias diarias de Google Trends para Chile, lo parsea
 (autos, credito, bencina, transporte, normativa vehicular, etc.).
 
 Uso:
-    python scripts/trends_cl.py                # todo + resaltado relevante
-    python scripts/trends_cl.py --solo-relevante
-    python scripts/trends_cl.py --json salida.json
+    python 04-conectores/scripts/trends_cl.py                # todo + resaltado relevante
+    python 04-conectores/scripts/trends_cl.py --solo-relevante
+    python 04-conectores/scripts/trends_cl.py --json salida.json
 """
 from __future__ import annotations
 

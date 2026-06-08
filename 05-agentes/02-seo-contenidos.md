@@ -4,7 +4,7 @@
 Convertir los clusters de keywords y las oportunidades de tendencia en **briefs SEO** y **borradores de artículo/landing** optimizados para captar y convertir tráfico de UNIDAD.
 
 ## Cadencia
-Continuo (backlog priorizado desde `knowledge-base/07-seo-keywords-clusters.md`).
+Continuo (backlog priorizado desde `../02-estrategia/seo-keywords-clusters.md`).
 
 ## Fuentes / inputs
 - `07-seo-keywords-clusters.md` (backlog de clusters)
@@ -21,7 +21,7 @@ Continuo (backlog priorizado desde `knowledge-base/07-seo-keywords-clusters.md`)
 5. Checklist on-page (ver abajo) antes de marcar "listo para publicar".
 
 ## Formato de salida
-Archivo `knowledge-base/outputs/contenido-[slug].md`:
+Archivo `../03-contenido/articulos/[slug].md` (y brief en `../03-contenido/briefs/`):
 ```
 # Brief + Borrador: [título]
 - Keyword principal | secundarias | cluster

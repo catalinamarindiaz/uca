@@ -13,33 +13,42 @@ Este repo es la **base de conocimiento + configuración de agentes de IA** para 
 
 ```
 .
-├── README.md                     ← este archivo
-├── knowledge-base/               ← qué sabemos (contexto, mercado, fuentes)
-│   ├── 01-perfil-unidad-creditos.md
-│   ├── 02-productos-oferta.md
-│   ├── 03-buyer-personas.md
-│   ├── 04-analisis-competencia.md
-│   ├── 05-fuentes-de-datos.md     ← validación de acceso a Trends, prensa, Autofact
-│   ├── 06-estrategia-growth.md
-│   └── 07-seo-keywords-clusters.md
-├── agents/                       ← agentes de IA (qué hace cada uno, inputs/outputs)
+├── README.md
+├── 00-contexto/                  ← quiénes somos (empresa, productos, personas)
+│   ├── empresa.md
+│   ├── productos.md
+│   └── buyer-personas.md
+├── 01-inteligencia-mercado/      ← qué pasa afuera (competencia, fuentes, outputs)
+│   ├── competencia.md
+│   ├── fuentes-de-datos.md
+│   └── outputs/                  ← entregables de los agentes (tendencias, competencia)
+├── 02-estrategia/                ← cómo crecemos
+│   ├── growth-strategy.md
+│   ├── seo-keywords-clusters.md
+│   └── lead-capture-playbook.md  ← estrategias de captación de leads
+├── 03-contenido/                 ← entregables de contenido
+│   ├── briefs/
+│   └── articulos/
+├── 04-conectores/                ← capa de datos vivos (MCP + scripts)
 │   ├── README.md
-│   ├── 01-research-tendencias.md
-│   ├── 02-seo-contenidos.md
-│   ├── 03-vigilancia-competencia.md
-│   ├── 04-social-community.md
-│   └── fuentes.yaml               ← fuentes en formato legible por máquina
-├── scripts/
-│   └── trends_cl.py               ← extractor de Google Trends (Chile), sin dependencias
-└── .cursor/rules/
-    └── contexto-unidad-creditos.mdc  ← contexto persistente para el agente
+│   ├── mcp-registry.yaml         ← inventario de MCPs y su estado
+│   ├── google-trends.md          ← cómo conectar Google Trends (MCP + fallback)
+│   ├── fuentes.yaml
+│   └── scripts/trends_cl.py
+├── 05-agentes/                   ← agentes de IA (fichas ejecutables)
+│   ├── README.md
+│   └── 01..04 (tendencias, SEO, competencia, social)
+└── .cursor/
+    ├── rules/contexto-unidad-creditos.mdc  ← contexto persistente
+    └── mcp.example.json                    ← ejemplo de config MCP (Trends)
 ```
 
 ## Cómo usar este repo
 
 1. **Contexto**: el agente de Cursor carga `.cursor/rules/contexto-unidad-creditos.mdc` automáticamente. Empieza por ahí.
-2. **Operar un agente**: abre la ficha del agente en `agents/` y pídele al asistente que "ejecute el agente X". Cada ficha define objetivo, fuentes, pasos y formato de salida.
-3. **Datos en vivo**: corre `python scripts/trends_cl.py` para tendencias de búsqueda de Chile, y revisa `knowledge-base/05-fuentes-de-datos.md` para el resto de fuentes.
+2. **Operar un agente**: abre la ficha en `05-agentes/` y pide "ejecuta el agente X". Cada ficha define objetivo, fuentes, pasos y formato de salida.
+3. **Datos en vivo**: la carpeta `04-conectores/` define cómo se conecta cada fuente. Para tendencias rápidas: `python 04-conectores/scripts/trends_cl.py`; para datos por keyword: MCP de Trends (ver `04-conectores/google-trends.md`).
+4. **Captación de leads**: la estrategia operativa está en `02-estrategia/lead-capture-playbook.md`.
 
 ## Herramientas conectadas (MCP)
 
@@ -49,7 +58,7 @@ Este repo es la **base de conocimiento + configuración de agentes de IA** para 
 | **gtm** (Google Tag Manager) | 🔑 Requiere autenticar | Tracking, eventos de conversión, píxeles |
 | **clickup** | 🔑 Requiere autenticar | Gestión de tareas, calendario editorial, backlog de growth |
 
-> Para activar GTM y ClickUp hay que completar la autenticación (ver `knowledge-base/05-fuentes-de-datos.md`).
+> Para activar GTM y ClickUp hay que completar la autenticación. El MCP de Google Trends (trendsmcp.ai) se añade aparte (ver `04-conectores/google-trends.md`). Estado y uso de cada MCP en `04-conectores/mcp-registry.yaml`.
 
 ## Nota importante de marca / seguridad
 

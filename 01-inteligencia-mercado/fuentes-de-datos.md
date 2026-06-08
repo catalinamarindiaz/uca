@@ -1,7 +1,7 @@
 # 05 — Fuentes de Datos (validación de acceso)
 
 > Validado el 8-jun-2026. Estado: ✅ accesible / ⚠️ con limitación / 🔑 requiere credencial.
-> Detalle máquina-legible en `agents/fuentes.yaml`.
+> Detalle máquina-legible en `../04-conectores/fuentes.yaml` y `../04-conectores/mcp-registry.yaml`.
 
 ## Resumen
 
@@ -30,10 +30,10 @@ https://trends.google.com/trending/rss?geo=CL
 ```
 Devuelve los términos más buscados del día con tráfico aproximado y noticias asociadas (ej. del 8-jun: "restricción vehicular hoy", "ipc", "demre"...).
 
-- **Automatización**: `python scripts/trends_cl.py` parsea el RSS (sin dependencias externas) y filtra por palabras clave de interés (auto, crédito, bencina, etc.).
+- **Automatización**: `python 04-conectores/scripts/trends_cl.py` parsea el RSS (sin dependencias externas) y filtra por palabras clave de interés (auto, crédito, bencina, etc.). Para curva por keyword usar el MCP de Trends (ver `../04-conectores/google-trends.md`).
 - **Limitación**: el RSS da *trending diario*, no la curva de "interés en el tiempo" de un keyword específico. Para eso:
   - Opción A: `pytrends` (librería no oficial; riesgo de rate-limit / bloqueo).
-  - Opción B: exportación manual CSV desde trends.google.com y guardarla en `knowledge-base/data/`.
+  - Opción B: exportación manual CSV desde trends.google.com y guardarla en `01-inteligencia-mercado/outputs/`.
   - Opción C (recomendada a futuro): Google Trends vía consultas comparativas trimestrales documentadas.
 
 ## 2. Prensa automotriz nacional (Chile) ✅

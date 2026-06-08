@@ -1,0 +1,16 @@
+{
+  "_comment": "Ejemplo de configuracion MCP para el proyecto. Copia las entradas que necesites a tu config real de MCP en Cursor (Settings > MCP) y reemplaza TU_API_KEY. NO subas claves reales al repo.",
+  "mcpServers": {
+    "trends": {
+      "url": "https://api.trendsmcp.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer TU_API_KEY_DE_TRENDSMCP"
+      }
+    }
+  },
+  "_ya_configurados_en_cursor": [
+    "user-skalling-wordpress (activo)",
+    "user-gtm (requiere autenticar con mcp_auth)",
+    "user-clickup (requiere autenticar con mcp_auth)"
+  ]
+}

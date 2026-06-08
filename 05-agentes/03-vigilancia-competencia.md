@@ -20,12 +20,12 @@ Quincenal + alerta ad-hoc ante promociones agresivas.
 
 ## Pasos
 1. Revisar la home y páginas de producto/financiamiento de cada competidor.
-2. Registrar cambios vs el último snapshot (`knowledge-base/04-analisis-competencia.md` + outputs previos).
+2. Registrar cambios vs el último snapshot (`../01-inteligencia-mercado/competencia.md` + outputs previos).
 3. Detectar amenazas/oportunidades para UNIDAD.
 4. Recomendar ajustes de oferta o mensaje.
 
 ## Formato de salida
-Archivo `knowledge-base/outputs/competencia-YYYY-MM-DD.md`:
+Archivo `../01-inteligencia-mercado/outputs/competencia-YYYY-MM-DD.md`:
 ```
 # Vigilancia competencia DD-MM-YYYY
 

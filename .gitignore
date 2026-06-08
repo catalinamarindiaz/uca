@@ -11,7 +11,7 @@ __pycache__/
 venv/
 
 # Salidas generadas por los agentes (datos efímeros)
-knowledge-base/outputs/*.json
+01-inteligencia-mercado/outputs/*.json
 
 # Temporales
 *.tmp

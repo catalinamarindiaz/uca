@@ -21,7 +21,7 @@ Semanal.
 4. **Testimonios**: transformar reseñas reales en historias (con consentimiento).
 
 ## Formato de salida
-`knowledge-base/outputs/social-YYYY-MM-DD.md` con: calendario de piezas, copies, y CTA. Ideas de formato (carrusel, reel, post) según plataforma.
+`../01-inteligencia-mercado/outputs/social-YYYY-MM-DD.md` con: calendario de piezas, copies, y CTA. Ideas de formato (carrusel, reel, post) según plataforma.
 
 ## Reglas
 - Solo testimonios reales y con permiso.
