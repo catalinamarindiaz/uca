@@ -1,0 +1,113 @@
+# Fuentes de datos para los agentes de growth de Unidad Créditos
+# Estado: ok = accesible público | limited = con limitación | auth = requiere credencial
+# Validado: 2026-06-08
+
+trends:
+  - id: google_trends_cl_rss
+    nombre: Google Trends Chile (RSS diario)
+    url: https://trends.google.com/trending/rss?geo=CL
+    estado: ok
+    metodo: rss
+    script: scripts/trends_cl.py
+    notas: Tendencias diarias de búsqueda. No da curva por keyword.
+  - id: google_trends_keyword
+    nombre: Google Trends - interés por keyword
+    url: https://trends.google.com/trends/explore?geo=CL
+    estado: limited
+    metodo: web_o_pytrends
+    notas: Requiere JS o librería pytrends (no oficial). Alternativa - export CSV manual.
+
+prensa_automotriz:
+  - id: emol_autos
+    nombre: Emol Autos
+    url: https://www.emol.com/autos/
+    estado: ok
+  - id: latercera_motores
+    nombre: La Tercera - Motores/MT
+    url: https://www.latercera.com/
+    estado: ok
+  - id: biobio_servicios
+    nombre: BioBioChile - servicios (restricción, bencina, normativa)
+    url: https://www.biobiochile.cl/
+    estado: ok
+
+datos_vehiculares:
+  - id: autofact
+    nombre: Autofact (tasación, precios usados, blog)
+    url: https://www.autofact.cl/
+    estado: ok
+    notas: Complementario (informes/transferencia), no competidor. Blog + podcast.
+
+competidores:
+  - id: tanner_one
+    nombre: Tanner ONE (entre particulares)
+    url: https://www.tanner.cl/automotriz/financiamiento-particulares
+    estado: ok
+    tipo: directo
+  - id: dily
+    nombre: Dily (comparador + Dily Finance)
+    url: https://www.dily.cl/servicios/credito-automotriz
+    estado: ok
+    tipo: directo_y_canal
+  - id: autofin
+    nombre: Autofin (Banco Internacional)
+    url: https://www.autofin.cl/
+    estado: ok
+    tipo: directo
+  - id: forum
+    nombre: Forum (BBVA) - líder
+    url: https://www.forum.cl/
+    estado: ok
+    tipo: grande
+  - id: bk
+    nombre: BK (Bicecorp / Kaufmann)
+    url: https://www.bk.cl/
+    estado: ok
+    tipo: grande
+
+regulacion:
+  - id: cmf_alertas
+    nombre: CMF Chile - alertas de fraude
+    url: https://www.cmfchile.cl/portal/principal/613/w3-propertyvalue-43333.html
+    estado: ok
+    notas: Alerta sobre creditosunidad.com (NO es UNIDAD).
+  - id: df_sector
+    nombre: Diario Financiero - sector financiero
+    url: https://www.df.cl/
+    estado: limited
+    notas: Muro de pago parcial.
+
+analitica_y_ops:
+  - id: gsc
+    nombre: Google Search Console (unidadcreditos.cl)
+    estado: auth
+    accion: pedir acceso de lectura al cliente
+  - id: ga4
+    nombre: Google Analytics 4
+    estado: auth
+    accion: pedir acceso al cliente
+  - id: gbp
+    nombre: Google Business Profile (reseñas)
+    estado: auth
+    accion: pedir acceso al cliente
+  - id: mcp_gtm
+    nombre: Google Tag Manager (MCP)
+    servidor_mcp: user-gtm
+    estado: auth
+    accion: autenticar MCP en Cursor
+  - id: mcp_clickup
+    nombre: ClickUp (MCP)
+    servidor_mcp: user-clickup
+    estado: auth
+    accion: autenticar MCP en Cursor
+  - id: mcp_wordpress
+    nombre: WordPress skalling.com (MCP)
+    servidor_mcp: user-skalling-wordpress
+    estado: ok
+    notas: Sitio de la agencia. Divi + WPForms + Rank Math. No es el sitio de UNIDAD.
+
+objetivo:
+  sitio_oficial: https://www.unidadcreditos.cl/
+  cms_probable: Wix
+  marca: UNIDAD® Crédito Automotriz
+  agencia: Skalling - Aceleración Digital (skalling.com)
