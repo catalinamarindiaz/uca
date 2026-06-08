@@ -1,49 +1,60 @@
-# Conector: Google Trends
+# Conector: Tendencias (multi-fuente, propio y gratis)
 
-Dos formas de conectar Google Trends, en orden de preferencia.
+Tres formas de obtener tendencias, en orden de preferencia. La **Opción A es propia y gratis** (recomendada); la B es un fallback simple; la C es un servicio de pago opcional.
 
-## Opción A (recomendada) — MCP trendsmcp.ai
+## Opción A (recomendada) — Script propio multi-fuente · `scripts/tendencias.py`
 
-Servidor MCP gestionado para datos de tendencias en vivo (Google Search, YouTube, TikTok, Reddit, etc.). Reemplaza a `pytrends` (archivado, con bloqueos 429). Da volumen absoluto y JSON estructurado que el agente razona directo.
+Agregador propio que consulta **directo el origen** de cada señal, **sin API keys ni costo**, usando solo la biblioteca estándar de Python. Hecho a medida para Unidad Créditos (keywords de auto/crédito + contexto Chile).
 
-- Endpoint: `https://api.trendsmcp.ai/mcp`
-- Auth: API key — registro en https://trendsmcp.ai (free tier ~100 req/mes).
-- Herramientas:
-  - `get_trends(keyword, source='google search', data_mode='weekly'|'daily', period='5y'|'1y'|'3m'|'1m'|'30d')`
-  - `get_growth(keyword, ...)` → crecimiento % por período
-  - `get_top_trends(source)` → qué es tendencia ahora
-  - `get_ranked_trends(source)` → top topics por volumen
+### Fuentes (gratis) que cubre
+| Conector | Origen | Qué entrega |
+|---|---|---|
+| `daily` | Google Trends RSS (geo=CL) | términos más buscados del día en Chile |
+| `news` | Google News RSS (es-CL) | **volumen de noticias por keyword** (momentum) + titulares |
+| `wikipedia` | Wikipedia Pageviews REST API | vistas e interés por tema/modelo + Δ 7d vs 7d |
+| `pytrends` (opcional) | Google Trends no oficial | interés en el tiempo por keyword (requiere `pip install pytrends`) |
 
-### Cómo añadirlo en Cursor
-Agregar a la config de MCP de Cursor (ver `.cursor/mcp.example.json` en la raíz del repo). Tras añadirlo y poner la API key, reiniciar/recargar MCP en Cursor.
+### Uso
+```bash
+# Informe completo (daily + news + wikipedia)
+python 04-conectores/scripts/tendencias.py
 
-### Keywords prioritarias para Unidad (monitoreo)
-- `crédito automotriz`
-- `crédito automotriz entre particulares`
-- `crédito sin acreditar ingresos`
-- `comprar auto usado`
-- `precio bencina` (proxy de sensibilidad al costo de uso)
-- nombres de modelos usados populares (Tucson, Suzuki, etc.)
+# Solo noticias, ventana de 14 días, guardando salidas
+python 04-conectores/scripts/tendencias.py --fuentes news --dias 14 \
+  --md 01-inteligencia-mercado/outputs/tendencias-$(date +%F).md \
+  --json 01-inteligencia-mercado/outputs/tendencias-$(date +%F).json
 
-### Uso típico (agente de tendencias / SEO)
-1. `get_growth` de las keywords prioritarias → detectar cuáles suben.
-2. `get_top_trends('google search')` para CL → temas calientes del momento.
-3. Cruzar con clusters SEO (`../02-estrategia/seo-keywords-clusters.md`) y proponer contenido.
-4. Guardar el output en `../01-inteligencia-mercado/outputs/`.
+# Keywords / artículos personalizados
+python 04-conectores/scripts/tendencias.py \
+  --keywords "crédito automotriz" "comprar auto usado" \
+  --wiki "Hyundai_Tucson" "Tesla,_Inc."
 
-## Opción B (fallback, sin dependencias ni API key) — script RSS
-
-`scripts/trends_cl.py` lee el feed RSS oficial de tendencias diarias de Chile
-(`https://trends.google.com/trending/rss?geo=CL`) y resalta términos relevantes
-(autos, crédito, bencina, normativa).
-
+# Incluir pytrends (interés en el tiempo)
+python 04-conectores/scripts/tendencias.py --pytrends
 ```
+
+### Notas
+- Cada conector **falla de forma aislada**: si una fuente cae, las demás siguen.
+- `news` es el mejor proxy de demanda/actualidad para este negocio (ej. picos de "restricción vehicular", "precio bencina").
+- `wikipedia` usa ventana mínima de 30 días para calcular el momentum (Δ 7d).
+- Salida en consola (UTF-8), y opcionalmente `--md` / `--json` a `01-inteligencia-mercado/outputs/`.
+
+### Cómo extenderlo (añadir fuentes)
+Agregar una función conector que devuelva un dict y enchufarla en `correr()` + `a_markdown()`. Candidatos gratis a futuro: Reddit (.json público), YouTube (requiere API key), RSS de prensa automotriz (Emol/Latercera), Banco Central / SII para señales económicas.
+
+## Opción B (fallback simple) — `scripts/trends_cl.py`
+Versión ligera que solo lee el trending diario de Chile (Google Trends RSS). Útil para un pulso rápido. La Opción A ya incluye esto en su conector `daily`.
+
+```bash
 python 04-conectores/scripts/trends_cl.py --solo-relevante
-python 04-conectores/scripts/trends_cl.py --json salida.json
 ```
 
-Limitación: da el *trending diario*, no la curva de interés por keyword (para eso, usar Opción A).
+## Opción C (opcional, de pago) — MCP trendsmcp.ai
+Servicio gestionado con ~25+ fuentes normalizadas a índice 0–100 (Google, YouTube, TikTok, Reddit, Amazon, etc.). Free tier de **100 req/mes**; más allá, es **de pago**.
+- Endpoint: `https://api.trendsmcp.ai/mcp` · Auth: API key (`.cursor/mcp.example.json`).
+- Conviene solo si necesitamos **comparación cross-plataforma normalizada** o volumen absoluto que no obtenemos gratis. Para el día a día de Unidad, la Opción A es suficiente.
 
 ## Cuándo usar cada una
-- **Investigación de demanda / estacionalidad de un keyword** → Opción A (MCP).
-- **Pulso diario rápido / sin API key / offline-friendly** → Opción B (script).
+- **Operación diaria / informes semanales** → Opción A (propia, gratis).
+- **Pulso rápido del trending del día** → Opción B.
+- **Benchmark cross-plataforma normalizado puntual** → Opción C (evaluar costo).

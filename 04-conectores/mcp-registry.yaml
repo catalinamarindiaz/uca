@@ -5,16 +5,19 @@
 mcps:
   - id: trends
     nombre: Google Trends (trendsmcp.ai)
-    estado: por_anadir
+    estado: opcional_pago
     endpoint: https://api.trendsmcp.ai/mcp
-    auth: API key (free tier 100 req/mes) - registrarse en https://trendsmcp.ai
+    auth: API key (free tier 100 req/mes, luego de pago) - https://trendsmcp.ai
     herramientas:
       - get_trends        # serie temporal de un keyword
       - get_growth        # crecimiento % 1W/1M/3M/6M/1Y
       - get_top_trends    # que es tendencia ahora
       - get_ranked_trends # top topics por volumen
-    usado_por: [agente-01-research-tendencias, agente-02-seo-contenidos]
-    notas: Reemplaza a pytrends (archivado). Da volumen absoluto + JSON. Ver google-trends.md
+    usado_por: []
+    notas: >
+      OPCIONAL. Preferimos el script propio gratis 04-conectores/scripts/tendencias.py
+      (Google News + Wikipedia + Trends RSS). trendsmcp solo si se necesita comparacion
+      cross-plataforma normalizada 0-100. Ver google-trends.md
 
   - id: skalling-wordpress
     nombre: WordPress skalling.com

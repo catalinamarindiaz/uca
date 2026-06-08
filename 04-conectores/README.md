@@ -10,22 +10,26 @@ Fuente en vivo  ──▶  Conector            ──▶  Agente            ─�
  prensa, etc.)
 ```
 
-- **MCP** (preferido): herramientas que el asistente llama en vivo (Trends, GTM, ClickUp, WordPress).
-- **Scripts** (fallback sin dependencias): p. ej. `scripts/trends_cl.py` para Google Trends vía RSS.
+- **Scripts propios** (preferido para tendencias): `scripts/tendencias.py` agrega Google News, Wikipedia y Google Trends gratis, sin API keys.
+- **MCP**: herramientas que el asistente llama en vivo (GTM, ClickUp, WordPress; Trends de pago opcional).
 - Los **agentes** (`../05-agentes/`) consumen estos conectores y guardan resultados en `../01-inteligencia-mercado/outputs/`.
 
 ## Archivos
+- `scripts/tendencias.py` — **agregador propio de tendencias** (Google News + Wikipedia + Google Trends), gratis y sin API keys.
+- `scripts/trends_cl.py` — extractor ligero del trending diario de Chile (fallback).
+- `google-trends.md` — guía de las 3 opciones de tendencias (script propio / fallback / MCP de pago).
 - `mcp-registry.yaml` — inventario de servidores MCP, estado y para qué se usan.
-- `google-trends.md` — cómo conectar Google Trends por MCP (recomendado) y por script (fallback).
 - `fuentes.yaml` — fuentes de datos (prensa, competidores, regulación) y su estado.
-- `scripts/trends_cl.py` — extractor de tendencias diarias de Chile (sin dependencias).
 
 ## Estado actual de los conectores
 
 | Conector | Tipo | Estado | Para qué |
 |---|---|---|---|
-| Google Trends (trendsmcp.ai) | MCP | ⛏️ por añadir | volumen/keywords/breakouts en vivo |
-| Google Trends (RSS) | script | ✅ listo | tendencias diarias CL (fallback) |
+| Tendencias multi-fuente (propio) | script | ✅ listo | News + Wikipedia + Trends, gratis |
+| Google News (es-CL) | script | ✅ listo | momentum de noticias por keyword |
+| Wikipedia Pageviews | script | ✅ listo | interés por tema/modelo |
+| Google Trends (RSS diario) | script | ✅ listo | trending del día CL |
+| Google Trends (trendsmcp.ai) | MCP | 💲 opcional pago | cross-plataforma normalizado |
 | Prensa automotriz | web | ✅ listo | noticias/ángulos de contenido |
 | Autofact | web | ✅ listo | tasación, trámites, usados |
 | GTM | MCP | 🔑 autenticar | tracking de conversión/leads |
