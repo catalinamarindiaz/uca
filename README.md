@@ -1,6 +1,11 @@
 # Growth Digital — Unidad Crédito Automotriz
 
-Repositorio de inteligencia y operación para el crecimiento digital de **UNIDAD® Crédito Automotriz** ([unidadcreditos.cl](https://www.unidadcreditos.cl/)), gestionado por **Skalling — Aceleración Digital** ([skalling.com](https://www.skalling.com)).
+> **Repo oficial:** [`agilerod/unidad_creditos_contenido`](https://github.com/agilerod/unidad_creditos_contenido) (privado).
+> Único repositorio del proyecto de contenido/growth de Unidad Créditos. No mezclar con otros proyectos.
+
+Repositorio de inteligencia y operación para el crecimiento digital de **UNIDAD® Crédito Automotriz** ([unidadcreditos.cl](https://www.unidadcreditos.cl/)), **cliente de Skalling — Aceleración Digital** ([skalling.com](https://www.skalling.com)), que gestiona este trabajo.
+
+> Nota: el MCP `skalling-wordpress` apunta al sitio de la **agencia** (skalling.com), no al sitio del cliente Unidad Créditos.
 
 Este repo es la **base de conocimiento + configuración de agentes de IA** para ejecutar growth de forma sistemática: investigación de tendencias, SEO/contenidos, vigilancia de competencia y monitoreo de fuentes.
 
