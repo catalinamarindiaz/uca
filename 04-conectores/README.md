@@ -29,8 +29,8 @@ Fuente en vivo  ──▶  Conector            ──▶  Agente            ─�
 | Google News (es-CL) | script | ✅ listo | momentum de noticias por keyword |
 | Wikipedia Pageviews | script | ✅ listo | interés por tema/modelo |
 | Google Trends (RSS diario) | script | ✅ listo | trending del día CL |
+| Prensa automotriz (La Tercera/Autocosmos/Emol) | script `prensa` | ✅ listo | titulares automotrices recientes |
 | Google Trends (trendsmcp.ai) | MCP | 💲 opcional pago | cross-plataforma normalizado |
-| Prensa automotriz | web | ✅ listo | noticias/ángulos de contenido |
 | Autofact | web | ✅ listo | tasación, trámites, usados |
 | GTM | MCP | 🔑 autenticar | tracking de conversión/leads |
 | ClickUp | MCP | 🔑 autenticar | tareas y calendario editorial |

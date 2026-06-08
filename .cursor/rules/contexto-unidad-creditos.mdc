@@ -5,6 +5,8 @@ alwaysApply: true
 
 # Contexto: Growth Digital — UNIDAD® Crédito Automotriz
 
+> Fuente canónica de contexto y reglas: **`AGENTS.md`** (compartida con Claude y otros asistentes). Flujo de colaboración: **`CONTRIBUTING.md`**. Esta regla es un resumen para Cursor.
+
 Este repo es la base de conocimiento y operación de growth para **UNIDAD® Crédito Automotriz** (unidadcreditos.cl), gestionado por la agencia **Skalling — Aceleración Digital** (skalling.com).
 
 ## Qué es UNIDAD

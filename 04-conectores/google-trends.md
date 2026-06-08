@@ -11,8 +11,11 @@ Agregador propio que consulta **directo el origen** de cada señal, **sin API ke
 |---|---|---|
 | `daily` | Google Trends RSS (geo=CL) | términos más buscados del día en Chile |
 | `news` | Google News RSS (es-CL) | **volumen de noticias por keyword** (momentum) + titulares |
+| `prensa` | RSS prensa automotriz (La Tercera MTOnline, Autocosmos) + Emol vía Google News | titulares automotrices recientes por medio |
 | `wikipedia` | Wikipedia Pageviews REST API | vistas e interés por tema/modelo + Δ 7d vs 7d |
 | `pytrends` (opcional) | Google Trends no oficial | interés en el tiempo por keyword (requiere `pip install pytrends`) |
+
+> El conector `prensa` intenta el RSS nativo de la sección de autos de cada medio y, si falla, cae a Google News acotado a la sección del medio (evita noticias policiales/generales).
 
 ### Uso
 ```bash

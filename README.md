@@ -43,6 +43,16 @@ Este repo es la **base de conocimiento + configuración de agentes de IA** para 
     └── mcp.example.json                    ← ejemplo de config MCP (Trends)
 ```
 
+## Colaboración (equipo + IA)
+
+Trabajamos en equipo (humanos + Cursor + Claude) vía GitHub:
+- **`AGENTS.md`** — contexto y reglas canónicas para cualquier asistente de IA.
+- **`CLAUDE.md`** — punto de entrada para Claude (apunta a `AGENTS.md`).
+- **`CONTRIBUTING.md`** — flujo de ramas, commits y Pull Requests.
+- Plantillas en `.github/` (PR y solicitud de contenido).
+
+Regla de oro: trabajar en ramas (`feat/`, `content/`, `fix/`) y abrir PR hacia `main`. Nunca commitear secretos.
+
 ## Cómo usar este repo
 
 1. **Contexto**: el agente de Cursor carga `.cursor/rules/contexto-unidad-creditos.mdc` automáticamente. Empieza por ahí.

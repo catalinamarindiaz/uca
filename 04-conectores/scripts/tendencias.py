@@ -57,6 +57,15 @@ WIKI_ARTICULOS = [
     "Automóvil",
 ]
 
+# Prensa automotriz nacional. Se intenta el RSS nativo de la seccion de autos;
+# si falla o no trae items, se usa Google News acotado a la SECCION del medio
+# (gnews_scope, ya tematico) para evitar ruido policial/general.
+PRENSA = [
+    {"nombre": "La Tercera MTOnline", "rss": "https://www.latercera.com/arc/outboundfeeds/rss/category/mtonline/?outputType=xml", "gnews_scope": "site:latercera.com/mtonline"},
+    {"nombre": "Autocosmos Chile",    "rss": "https://noticias.autocosmos.cl/rss", "gnews_scope": "site:autocosmos.cl"},
+    {"nombre": "Emol Autos",          "rss": "",                                   "gnews_scope": "site:emol.com (autos OR automóvil OR automotriz)"},
+]
+
 # Para resaltar relevancia en el trending diario.
 KEYWORDS_RELEVANTES = [
     "auto", "vehic", "veh\u00edc", "camioneta", "suv", "moto",
@@ -157,6 +166,82 @@ def google_news(keyword, dias=7, hl="es-CL", gl="CL", ceid="CL:es"):
     }
 
 
+# --------------------------------------------------------------------------- #
+# Conector 2b: Prensa automotriz nacional (RSS nativo + fallback Google News)
+# --------------------------------------------------------------------------- #
+
+def prensa(dias=7):
+    medios = []
+    for m in PRENSA:
+        arts = _safe(_leer_feed, m["rss"], dias) if m.get("rss") else None
+        origen = "rss"
+        if not arts:  # fallback: Google News acotado a la SECCION automotriz del medio
+            q = urllib.parse.quote(m["gnews_scope"])
+            url = ("https://news.google.com/rss/search?q=%s&hl=es-CL&gl=CL&ceid=CL:es" % q)
+            arts = _safe(_leer_feed, url, dias) or []
+            origen = "google_news(seccion)"
+        medios.append({
+            "nombre": m["nombre"],
+            "origen": origen,
+            "volumen": len(arts),
+            "articulos": arts[:6],
+        })
+    medios.sort(key=lambda x: x["volumen"], reverse=True)
+    return {"fuente": "prensa", "dias": dias, "medios": medios}
+
+
+def _leer_feed(url, dias):
+    """Lee un feed RSS o Atom y devuelve items recientes (filtrados por relevancia)."""
+    root = ET.fromstring(http_get(url))
+    corte = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=dias)
+    arts = []
+    # RSS: channel/item ; Atom: feed/entry
+    items = list(root.iter("item")) or list(root.iter("{http://www.w3.org/2005/Atom}entry"))
+    for it in items:
+        titulo = (_tag(it, "title") or "").strip()
+        link = _link(it)
+        fecha = (_tag(it, "pubDate") or _tag(it, "{http://www.w3.org/2005/Atom}updated")
+                 or _tag(it, "{http://www.w3.org/2005/Atom}published") or "").strip()
+        ts = _parse_rss_date(fecha) or _parse_iso(fecha)
+        if ts and ts < corte:
+            continue
+        # los feeds de seccion "autos" ya son tematicos; igual filtramos ruido evidente
+        arts.append({"titulo": titulo, "url": link, "fecha": fecha})
+    return arts
+
+
+def _tag(el, name):
+    child = el.find(name)
+    return child.text if child is not None and child.text else None
+
+
+def _link(it):
+    # RSS: <link>texto</link> ; Atom: <link href="..."/>
+    l = it.find("link")
+    if l is not None:
+        if l.text and l.text.strip():
+            return l.text.strip()
+        href = l.get("href")
+        if href:
+            return href
+    al = it.find("{http://www.w3.org/2005/Atom}link")
+    if al is not None and al.get("href"):
+        return al.get("href")
+    return ""
+
+
+def _parse_iso(s):
+    if not s:
+        return None
+    try:
+        d = dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=dt.timezone.utc)
+        return d
+    except ValueError:
+        return None
+
+
 def _parse_rss_date(s):
     if not s:
         return None
@@ -251,6 +336,9 @@ def correr(fuentes, keywords, wiki, dias, usar_pytrends):
         noticias.sort(key=lambda x: x.get("volumen", 0), reverse=True)
         out["datos"]["google_news"] = noticias
 
+    if "prensa" in fuentes:
+        out["datos"]["prensa"] = _safe(prensa, dias) or {}
+
     if "wikipedia" in fuentes:
         # Wikipedia necesita >=14 dias para calcular momentum (7d vs 7d previos).
         win_wiki = max(dias, 30)
@@ -295,6 +383,22 @@ def a_markdown(out):
                     L.append("  %s" % a["url"])
             L.append("")
 
+    if "prensa" in d and d["prensa"]:
+        L.append("## Prensa automotriz nacional (últimos %dd)" % d["prensa"]["dias"])
+        L.append("| Medio | Artículos | Origen |")
+        L.append("|---|---|---|")
+        for m in d["prensa"]["medios"]:
+            L.append("| %s | %d | %s |" % (m["nombre"], m["volumen"], m["origen"]))
+        L.append("")
+        for m in d["prensa"]["medios"]:
+            if m["articulos"]:
+                L.append("### %s" % m["nombre"])
+                for a in m["articulos"][:4]:
+                    L.append("- %s" % a["titulo"])
+                    if a["url"]:
+                        L.append("  %s" % a["url"])
+                L.append("")
+
     if "wikipedia_pageviews" in d:
         L.append("## Interés en Wikipedia (vistas, últimos %dd)" % (d["wikipedia_pageviews"][0]["dias"] if d["wikipedia_pageviews"] else 30))
         L.append("| Artículo | Vistas total | Últimos 7d | Δ vs 7d previos |")
@@ -330,9 +434,9 @@ def a_markdown(out):
 def main():
     ap = argparse.ArgumentParser(description="Agregador de tendencias propio (gratis) para Unidad Creditos")
     ap.add_argument("--fuentes", nargs="+",
-                    default=["daily", "news", "wikipedia"],
-                    choices=["daily", "news", "wikipedia"],
-                    help="conectores a usar (por defecto: daily news wikipedia)")
+                    default=["daily", "news", "prensa", "wikipedia"],
+                    choices=["daily", "news", "prensa", "wikipedia"],
+                    help="conectores a usar (por defecto: daily news prensa wikipedia)")
     ap.add_argument("--keywords", nargs="+", default=KEYWORDS, help="keywords a monitorear")
     ap.add_argument("--wiki", nargs="+", default=WIKI_ARTICULOS, help="articulos de Wikipedia (es)")
     ap.add_argument("--dias", type=int, default=7, help="ventana en dias (news) / 30 sugerido para wiki")

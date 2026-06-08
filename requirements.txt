@@ -1,0 +1,6 @@
+# Los conectores de 04-conectores/scripts/ usan SOLO la biblioteca estandar.
+# No se requiere instalar nada para el funcionamiento principal.
+#
+# Dependencia OPCIONAL (solo si usas el conector pytrends en tendencias.py):
+#   pip install -r requirements.txt
+pytrends>=4.9.2
