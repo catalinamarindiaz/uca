@@ -4,3 +4,7 @@
 # Dependencia OPCIONAL (solo si usas el conector pytrends en tendencias.py):
 #   pip install -r requirements.txt
 pytrends>=4.9.2
+
+# Dependencia OPCIONAL (solo para 04-conectores/scripts/optimizar_imagenes.py):
+#   genera versiones web (WebP/JPG responsive) de imagenes para Webflow/landing.
+Pillow>=10.0.0
