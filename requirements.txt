@@ -8,3 +8,8 @@ pytrends>=4.9.2
 # Dependencia OPCIONAL (solo para 04-conectores/scripts/optimizar_imagenes.py):
 #   genera versiones web (WebP/JPG responsive) de imagenes para Webflow/landing.
 Pillow>=10.0.0
+
+# Dependencia OPCIONAL (solo para optimizar_imagenes.py --quitar-fondo):
+#   recorta el sujeto y deja fondo transparente (modelo U2Net; descarga ~170 MB la 1a vez).
+rembg>=2.0.50
+onnxruntime>=1.16.0

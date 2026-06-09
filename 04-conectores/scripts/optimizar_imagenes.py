@@ -22,8 +22,16 @@ Uso:
   # Solo WebP, calidad 80:
   python 04-conectores/scripts/optimizar_imagenes.py img.png --formatos webp --calidad 80
 
+  # Quitar el fondo (recorte transparente) + exportar PNG/WebP con alfa:
+  python 04-conectores/scripts/optimizar_imagenes.py ejecutiva.png --quitar-fondo --formatos webp png
+
 Presets de ancho:
   desktop -> 1920, 1280        mobile -> 768, 480        ambos (default) -> los 4
+
+Quitar fondo (--quitar-fondo): usa 'rembg' (segmentacion con modelo U2Net) para
+recortar el sujeto y dejar fondo transparente. Requiere:  pip install rembg onnxruntime
+(la 1a vez descarga el modelo ~170 MB). Ideal para fotos de personas (pelo incluido).
+Al usarlo, exporta solo en formatos con alfa (webp/png); el JPG se omite.
 
 Por que Python + Pillow: redimensionar/recomprimir es un trabajo puntual de
 glue-code; Pillow lo resuelve en pocas lineas y es el estandar del ecosistema.
@@ -54,6 +62,31 @@ PRESETS_ANCHO = {
 }
 
 FORMATOS_VALIDOS = {"webp", "jpg", "png"}
+FORMATOS_CON_ALFA = {"webp", "png"}
+
+# Sesion de rembg cacheada (cargar el modelo es costoso; se reutiliza).
+_REMBG_SESSION = None
+
+
+def _quitar_fondo(img: "Image.Image") -> "Image.Image":
+    """Recorta el sujeto y devuelve la imagen en RGBA (fondo transparente).
+
+    Usa rembg (modelo U2Net). Importacion perezosa para no exigir la
+    dependencia cuando no se usa --quitar-fondo.
+    """
+    global _REMBG_SESSION
+    try:
+        from rembg import new_session, remove
+    except ImportError:
+        sys.exit(
+            "Para --quitar-fondo necesitas 'rembg'. Instalalo con:\n"
+            "  pip install rembg onnxruntime\n"
+            "(la primera vez descarga el modelo ~170 MB)."
+        )
+    if _REMBG_SESSION is None:
+        _REMBG_SESSION = new_session()
+    recortada = remove(img.convert("RGBA"), session=_REMBG_SESSION)
+    return recortada.convert("RGBA")
 
 
 def _humano(num_bytes: float) -> str:
@@ -90,11 +123,14 @@ def optimizar(
     anchos: list[int],
     formatos: list[str],
     calidad: int,
+    quitar_fondo: bool = False,
 ) -> list[tuple[Path, int]]:
     """Genera todas las variantes (ancho x formato) de una imagen."""
     resultados: list[tuple[Path, int]] = []
     with Image.open(origen) as im:
         im = ImageOps.exif_transpose(im)  # respeta orientacion EXIF
+        if quitar_fondo:
+            im = _quitar_fondo(im)
         ancho_orig, alto_orig = im.size
         base = origen.stem
 
@@ -149,12 +185,27 @@ def main(argv: list[str] | None = None) -> int:
         default=82,
         help="Calidad de compresion 1-100 (default: 82).",
     )
+    parser.add_argument(
+        "--quitar-fondo",
+        action="store_true",
+        help="Recorta el sujeto (fondo transparente) con rembg. Fuerza formatos con alfa.",
+    )
     args = parser.parse_args(argv)
 
     formatos = [f.lower() for f in args.formatos]
     invalidos = set(formatos) - FORMATOS_VALIDOS
     if invalidos:
         parser.error(f"Formato(s) no soportado(s): {', '.join(invalidos)}")
+
+    if args.quitar_fondo:
+        # Con recorte transparente, el JPG no sirve (aplana el alfa): se omite.
+        descartados = [f for f in formatos if f not in FORMATOS_CON_ALFA]
+        formatos = [f for f in formatos if f in FORMATOS_CON_ALFA] or ["png"]
+        if descartados:
+            print(
+                f"  i --quitar-fondo: omito {', '.join(descartados)} "
+                f"(no soportan transparencia). Uso: {', '.join(formatos)}."
+            )
 
     anchos = args.anchos if args.anchos else PRESETS_ANCHO[args.preset]
     out_dir = Path(args.out)
@@ -171,7 +222,9 @@ def main(argv: list[str] | None = None) -> int:
         tam_origen = origen.stat().st_size
         total_origen += tam_origen
         print(f"\n{origen.name}  ({_humano(tam_origen)})")
-        for destino, tam in optimizar(origen, out_dir, anchos, formatos, args.calidad):
+        for destino, tam in optimizar(
+            origen, out_dir, anchos, formatos, args.calidad, args.quitar_fondo
+        ):
             total_salida += tam
             generados += 1
             print(f"   -> {destino}  ({_humano(tam)})")
