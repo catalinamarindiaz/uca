@@ -41,9 +41,18 @@ mcps:
   - id: clickup
     nombre: ClickUp
     estado: autenticar
-    auth: ejecutar mcp_auth para 'user-clickup'
+    endpoint: https://mcp.clickup.com/mcp
+    auth: OAuth en Cursor Settings > MCP > clickup > Connect (plugin Marketplace o ~/.cursor/mcp.json)
+    herramientas_clave:
+      - Get Workspace Hierarchy
+      - Search Workspace
+      - Create Task
+      - Update Task
+      - Create Bulk Tasks
     usado_para: backlog de growth y calendario editorial
     usado_por: [agente-01-research-tendencias, agente-02-seo-contenidos]
+    docs: 04-conectores/clickup.md
+    config_local: 04-conectores/clickup-config.example.yaml → clickup-config.yaml (gitignored)
 
 # MCP candidatos a evaluar a futuro (no instalados)
 candidatos:

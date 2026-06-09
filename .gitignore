@@ -13,6 +13,9 @@ venv/
 # Salidas generadas por los agentes (datos efímeros)
 01-inteligencia-mercado/outputs/*.json
 
+# Config local ClickUp (IDs de workspace; completar tras OAuth)
+04-conectores/clickup-config.yaml
+
 # Temporales
 *.tmp
 *.log

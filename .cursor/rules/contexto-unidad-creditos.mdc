@@ -24,7 +24,7 @@ Financiera chilena de **crédito automotriz**, especializada en **crédito entre
 - `01-inteligencia-mercado/` → competencia, fuentes-de-datos, y `outputs/` (entregables de agentes).
 - `02-estrategia/` → growth-strategy, seo-keywords-clusters, lead-capture-playbook.
 - `03-contenido/` → `briefs/` y `articulos/` (entregables de contenido).
-- `04-conectores/` → capa de datos vivos: `mcp-registry.yaml`, `google-trends.md`, `fuentes.yaml`, `scripts/trends_cl.py`.
+- `04-conectores/` → capa de datos vivos: `mcp-registry.yaml`, `google-trends.md`, `clickup.md`, `fuentes.yaml`, `scripts/tendencias.py` (principal) y `scripts/trends_cl.py` (fallback).
 - `05-agentes/` → fichas de los agentes de growth (cómo ejecutarlos).
 
 ## Herramientas (MCP)

@@ -19,6 +19,8 @@ Fuente en vivo  ──▶  Conector            ──▶  Agente            ─�
 - `scripts/trends_cl.py` — extractor ligero del trending diario de Chile (fallback).
 - `google-trends.md` — guía de las 3 opciones de tendencias (script propio / fallback / MCP de pago).
 - `mcp-registry.yaml` — inventario de servidores MCP, estado y para qué se usan.
+- `clickup.md` — conectar OAuth, mapeo de listas y flujo agente → tarea.
+- `clickup-config.example.yaml` — plantilla de Space/Folder/List (copiar a `clickup-config.yaml`).
 - `fuentes.yaml` — fuentes de datos (prensa, competidores, regulación) y su estado.
 
 ## Estado actual de los conectores

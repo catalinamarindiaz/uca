@@ -1,0 +1,35 @@
+# Copiar a clickup-config.yaml (ignorado por git) tras conectar ClickUp.
+# Completar IDs reales con "Get Workspace Hierarchy" vía MCP.
+
+workspace:
+  nombre: "Skalling"  # o el nombre exacto del workspace autorizado
+  id: "REEMPLAZAR"
+
+spaces:
+  growth_unidad:
+    nombre: "Growth — UNIDAD Créditos"
+    id: "REEMPLAZAR"
+    folders:
+      inteligencia:
+        nombre: "Inteligencia"
+        id: "REEMPLAZAR"
+        lists:
+          tendencias: { nombre: "Tendencias semanales", id: "REEMPLAZAR" }
+          competencia: { nombre: "Vigilancia competencia", id: "REEMPLAZAR" }
+      contenido:
+        nombre: "Contenido"
+        id: "REEMPLAZAR"
+        lists:
+          backlog_seo: { nombre: "Backlog SEO", id: "REEMPLAZAR" }
+          en_revision: { nombre: "En revisión", id: "REEMPLAZAR" }
+          publicado: { nombre: "Publicado", id: "REEMPLAZAR" }
+
+# Plantilla de tarea que crean los agentes
+task_template:
+  tags: [unidad, growth]
+  status_nuevo: "to do"  # ajustar según statuses de la List
+  campos:
+    - slug
+    - cluster
+    - keyword_principal
+    - ruta_repo

@@ -1,16 +1,29 @@
 {
-  "_comment": "Ejemplo de configuracion MCP para el proyecto. Copia las entradas que necesites a tu config real de MCP en Cursor (Settings > MCP) y reemplaza TU_API_KEY. NO subas claves reales al repo.",
+  "_comment": "Ejemplo de configuracion MCP. La config real va en ~/.cursor/mcp.json (Settings > MCP). NO subas claves reales al repo.",
   "mcpServers": {
+    "clickup": {
+      "url": "https://mcp.clickup.com/mcp",
+      "_notas": "Plugin oficial ClickUp (Marketplace) o entrada manual. OAuth en primer uso. Ver 04-conectores/clickup.md"
+    },
+    "gtm": {
+      "url": "https://mcp.gtmeditor.com/authorize",
+      "_notas": "Requiere OAuth en Settings > MCP"
+    },
+    "skalling-wordpress": {
+      "command": "npx",
+      "args": ["-y", "@automattic/mcp-wordpress-remote@latest"],
+      "env": {
+        "WP_API_URL": "https://TU-SITIO/wp-json/mcp/mcp-adapter-default-server",
+        "WP_API_USERNAME": "TU_USUARIO",
+        "WP_API_PASSWORD": "TU_APP_PASSWORD"
+      }
+    },
     "trends": {
       "url": "https://api.trendsmcp.ai/mcp",
       "headers": {
         "Authorization": "Bearer TU_API_KEY_DE_TRENDSMCP"
-      }
+      },
+      "_notas": "Opcional de pago; preferir 04-conectores/scripts/tendencias.py"
     }
-  },
-  "_ya_configurados_en_cursor": [
-    "user-skalling-wordpress (activo)",
-    "user-gtm (requiere autenticar con mcp_auth)",
-    "user-clickup (requiere autenticar con mcp_auth)"
-  ]
+  }
 }

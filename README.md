@@ -13,7 +13,7 @@ Este repo es la **base de conocimiento + configuración de agentes de IA** para 
 
 ```
 .
-├── README.md
+├── README.md · AGENTS.md · CLAUDE.md · CONTRIBUTING.md · requirements.txt
 ├── 00-contexto/                  ← quiénes somos (empresa, productos, personas)
 │   ├── empresa.md
 │   ├── productos.md
@@ -32,15 +32,20 @@ Este repo es la **base de conocimiento + configuración de agentes de IA** para 
 ├── 04-conectores/                ← capa de datos vivos (MCP + scripts)
 │   ├── README.md
 │   ├── mcp-registry.yaml         ← inventario de MCPs y su estado
-│   ├── google-trends.md          ← cómo conectar Google Trends (MCP + fallback)
+│   ├── google-trends.md          ← tendencias (script propio + fallback + MCP de pago)
+│   ├── clickup.md                ← cómo conectar ClickUp (OAuth) y mapeo de listas
+│   ├── clickup-config.example.yaml
 │   ├── fuentes.yaml
-│   └── scripts/trends_cl.py
+│   └── scripts/
+│       ├── tendencias.py         ← agregador multi-fuente (principal)
+│       └── trends_cl.py          ← trending diario (fallback)
 ├── 05-agentes/                   ← agentes de IA (fichas ejecutables)
 │   ├── README.md
-│   └── 01..04 (tendencias, SEO, competencia, social)
+│   └── 01..05 (tendencias, SEO, competencia, social, lead-ops)
+├── .github/                      ← plantillas de PR e issues
 └── .cursor/
     ├── rules/contexto-unidad-creditos.mdc  ← contexto persistente
-    └── mcp.example.json                    ← ejemplo de config MCP (Trends)
+    └── mcp.example.json                    ← ejemplo de config MCP (sin secretos)
 ```
 
 ## Colaboración (equipo + IA)
@@ -57,7 +62,7 @@ Regla de oro: trabajar en ramas (`feat/`, `content/`, `fix/`) y abrir PR hacia `
 
 1. **Contexto**: el agente de Cursor carga `.cursor/rules/contexto-unidad-creditos.mdc` automáticamente. Empieza por ahí.
 2. **Operar un agente**: abre la ficha en `05-agentes/` y pide "ejecuta el agente X". Cada ficha define objetivo, fuentes, pasos y formato de salida.
-3. **Datos en vivo**: la carpeta `04-conectores/` define cómo se conecta cada fuente. Para tendencias rápidas: `python 04-conectores/scripts/trends_cl.py`; para datos por keyword: MCP de Trends (ver `04-conectores/google-trends.md`).
+3. **Datos en vivo**: la carpeta `04-conectores/` define cómo se conecta cada fuente. Para tendencias e inteligencia: `python 04-conectores/scripts/tendencias.py` (Google News + prensa + Wikipedia + Trends RSS, gratis); `trends_cl.py` es el pulso rápido del trending diario. Ver `04-conectores/google-trends.md`.
 4. **Captación de leads**: la estrategia operativa está en `02-estrategia/lead-capture-playbook.md`.
 
 ## Herramientas conectadas (MCP)
@@ -65,10 +70,10 @@ Regla de oro: trabajar en ramas (`feat/`, `content/`, `fix/`) y abrir PR hacia `
 | Servidor | Estado | Uso en growth |
 |---|---|---|
 | **skalling-wordpress** | ✅ Activo | Edición de skalling.com (Divi), WPForms (leads), Rank Math (SEO), medios, taxonomías |
-| **gtm** (Google Tag Manager) | 🔑 Requiere autenticar | Tracking, eventos de conversión, píxeles |
-| **clickup** | 🔑 Requiere autenticar | Gestión de tareas, calendario editorial, backlog de growth |
+| **clickup** | 🔑 OAuth pendiente | Tareas, calendario editorial, backlog de growth (ver `04-conectores/clickup.md`) |
+| **gtm** (Google Tag Manager) | 🔑 OAuth pendiente | Tracking, eventos de conversión, píxeles |
 
-> Para activar GTM y ClickUp hay que completar la autenticación. El MCP de Google Trends (trendsmcp.ai) se añade aparte (ver `04-conectores/google-trends.md`). Estado y uso de cada MCP en `04-conectores/mcp-registry.yaml`.
+> ClickUp y GTM se conectan con OAuth desde **Cursor → Settings → MCP** (no se guardan tokens en el repo). GA4 y Search Console quedan **pausados** por decisión del equipo; se usan vía web cuando se necesiten. El MCP de Google Trends (trendsmcp.ai) es opcional de pago. Estado y uso de cada MCP en `04-conectores/mcp-registry.yaml`.
 
 ## Nota importante de marca / seguridad
 
