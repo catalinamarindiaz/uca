@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNIDAD Hero — Mejora v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; }
+
+  /* ── NAV ── */
+  nav {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-main { font-size: 20px; font-weight: 800; color: #e85d04; letter-spacing: -0.5px; }
+  .logo-sub { font-size: 9px; color: #888; letter-spacing: 0.5px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-links a { font-size: 13px; color: #444; text-decoration: none; }
+  .nav-cta {
+    background: #1a1a2e;
+    color: #fff !important;
+    padding: 7px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: #fff;
+    min-height: 580px;
+    display: grid;
+    grid-template-columns: 1fr 480px 1fr;
+    grid-template-rows: 1fr;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Columna izquierda: copy */
+  .hero-copy {
+    padding: 64px 48px 48px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .breadcrumb {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .breadcrumb span { color: #bbb; }
+
+  .tag-producto {
+    display: inline-block;
+    background: #fff4ed;
+    color: #e85d04;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #111;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+  h1 em { font-style: normal; color: #e85d04; }
+
+  .subtitulo {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 420px;
+  }
+
+  .checklist {
+    list-style: none;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+  }
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    background: #e85d04;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .check-icon svg { width: 10px; height: 10px; }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-cta {
+    background: #e85d04;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+  .btn-cta:hover { background: #c94e00; }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #555;
+  }
+  .stars { color: #f5a623; font-size: 14px; }
+
+  /* Columna central: imagen ejecutiva */
+  .hero-img {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .ejecutiva-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fdf0e8 0%, #fff 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .ejecutiva-svg {
+    width: 380px;
+    height: 520px;
+    opacity: 0.15;
+  }
+  .img-label {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #bbb;
+    white-space: nowrap;
+  }
+
+  /* Columna derecha: widget simulación */
+  .hero-widget {
+    padding: 40px 32px 40px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .widget-card {
+    background: #fff;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 24px;
+    width: 220px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .widget-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+  }
+  .widget-subtitle {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .widget-features {
+    list-style: none;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .widget-features li {
+    font-size: 11px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .widget-features li::before {
+    content: "✓";
+    color: #e85d04;
+    font-weight: 700;
+    font-size: 10px;
+  }
+  .widget-hint {
+    background: #fff4ed;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 11px;
+    color: #e85d04;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .widget-btn {
+    background: #e85d04;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  /* ── FOOTER LEGAL ── */
+  .legal {
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+    padding: 12px 48px;
+    font-size: 11px;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ─── SEGUNDA VERSIÓN (propuesta propia) ─── */
+  .seccion-titulo {
+    padding: 32px 48px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #f5f5f5;
+  }
+  .version-label {
+    display: inline-block;
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  .hero-v2 {
+    background: #1a1a2e;
+    min-height: 580px;
+    display: grid;
+    grid-template-columns: 1fr 480px 1fr;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-v2 .hero-copy { padding: 64px 48px 48px 48px; }
+  .hero-v2 h1 { color: #fff; }
+  .hero-v2 h1 em { color: #e85d04; }
+  .hero-v2 .subtitulo { color: #aab; }
+  .hero-v2 .checklist li { color: #ccd; }
+  .hero-v2 .breadcrumb { color: #667; }
+  .hero-v2 .tag-producto { background: rgba(232,93,4,0.15); }
+  .hero-v2 .trust-badge { color: #aab; }
+
+  .hero-v2 .ejecutiva-placeholder {
+    background: linear-gradient(135deg, #232342 0%, #1a1a2e 100%);
+  }
+
+  .hero-v2 .widget-card {
+    background: #232342;
+    border-color: #334;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .hero-v2 .widget-title { color: #fff; }
+  .hero-v2 .widget-subtitle { color: #889; }
+  .hero-v2 .widget-features li { color: #aab; }
+  .hero-v2 .widget-hint { background: rgba(232,93,4,0.15); }
+  .hero-v2 .legal {
+    background: #1a1a2e;
+    border-top-color: #334;
+  }
+  .hero-v2 + .legal { background: #1a1a2e; border-top-color: #334; color: #556; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     VERSIÓN 1: MEJORA DE TU ORIGINAL
+     Cambios: copy + trust + widget
+════════════════════════════════════════ -->
+
+<div class="seccion-titulo">
+  <span class="version-label">V1</span> Tu versión — correcciones aplicadas
+</div>
+
+<nav>
+  <div class="logo">
+    <span class="logo-main">unidad</span>
+    <span class="logo-sub">crédito automotriz</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Tipos de crédito</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Alianzas</a>
+    <a href="#">Blog</a>
+    <a href="#">Contacto</a>
+    <a href="#" class="nav-cta">Paga tu cuota</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <!-- Copy -->
+  <div class="hero-copy">
+    <div class="breadcrumb">
+      <a href="#" style="color:#999;text-decoration:none;">Inicio</a>
+      <span>›</span>
+      <span>Crédito entre particulares</span>
+    </div>
+
+    <div class="tag-producto">crédito entre particulares</div>
+
+    <h1>¿Vas a comprar un auto<br>a un particular? No pagues<br>al contado <em>ni expongas tu dinero.</em></h1>
+
+    <p class="subtitulo">Verificamos al vendedor, el pie lo pagas directo a él y hacemos la transferencia en 1 día hábil.</p>
+
+    <ul class="checklist">
+      <li>
+        <div class="check-icon">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        Verificamos la identidad del vendedor antes de transferir
+      </li>
+      <li>
+        <div class="check-icon">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        El pie va directo al vendedor, no a nosotros
+      </li>
+      <li>
+        <div class="check-icon">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        Transferencia verificada en 1 día hábil
+      </li>
+    </ul>
+
+    <div class="cta-row">
+      <a href="#" class="btn-cta">Simula seguro →</a>
+      <div class="trust-badge">
+        <span class="stars">★★★★★</span>
+        <span>4,9 · +1.750 créditos aprobados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Imagen ejecutiva -->
+  <div class="hero-img">
+    <div class="ejecutiva-placeholder">
+      <svg class="ejecutiva-svg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="80" rx="45" ry="50" fill="#ccc"/>
+        <rect x="55" y="130" width="90" height="160" rx="10" fill="#aaa"/>
+        <rect x="20" y="140" width="40" height="100" rx="8" fill="#bbb"/>
+        <rect x="140" y="140" width="40" height="100" rx="8" fill="#bbb"/>
+        <rect x="65" y="290" width="30" height="100" rx="6" fill="#999"/>
+        <rect x="105" y="290" width="30" height="100" rx="6" fill="#999"/>
+      </svg>
+      <span class="img-label">[foto ejecutiva]</span>
+    </div>
+  </div>
+
+  <!-- Widget simulación -->
+  <div class="hero-widget">
+    <div class="widget-card">
+      <div class="widget-title">Simula en 1 minuto</div>
+      <div class="widget-subtitle">Sin compromiso · 100% digital · Ejecutiva real te responde</div>
+      <div class="widget-hint">Pie desde 20% · hasta 60 meses</div>
+      <ul class="widget-features">
+        <li>Sin acreditar ingresos</li>
+        <li>Respuesta en el día</li>
+        <li>Ejecutiva real te asesora</li>
+      </ul>
+      <button class="widget-btn">Simula tu crédito entre particulares →</button>
+    </div>
+  </div>
+</div>
+
+<div class="legal" style="background:#fff;">
+  <span>Sujeto a evaluación crediticia. UNIDAD® nunca solicita transferencias de dinero.</span>
+  <span>unidadcreditos.cl</span>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     VERSIÓN 2: PROPUESTA PROPIA
+     Diferenciador: verificación del vendedor
+     como promesa central, no el financiamiento
+════════════════════════════════════════ -->
+
+<div class="seccion-titulo" style="margin-top:32px;">
+  <span class="version-label" style="background:#e85d04;">V2</span> Propuesta propia — diferenciador: la verificación
+</div>
+
+<nav style="background:#1a1a2e; border-bottom-color:#334;">
+  <div class="logo">
+    <span class="logo-main">unidad</span>
+    <span class="logo-sub" style="color:#556;">crédito automotriz</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" style="color:#aab;">Tipos de crédito</a>
+    <a href="#" style="color:#aab;">Nosotros</a>
+    <a href="#" style="color:#aab;">Alianzas</a>
+    <a href="#" style="color:#aab;">Blog</a>
+    <a href="#" style="color:#aab;">Contacto</a>
+    <a href="#" class="nav-cta" style="background:#e85d04;">Paga tu cuota</a>
+  </div>
+</nav>
+
+<div class="hero hero-v2">
+  <!-- Copy -->
+  <div class="hero-copy">
+    <div class="breadcrumb">
+      <a href="#" style="color:#667;text-decoration:none;">Inicio</a>
+      <span style="color:#445;">›</span>
+      <span style="color:#667;">Crédito entre particulares</span>
+    </div>
+
+    <div class="tag-producto">compra entre particulares</div>
+
+    <h1>Comprando auto<br>a un particular —<br><em>verificamos al vendedor</em><br>y lo financiamos.</h1>
+
+    <p class="subtitulo">La única financiera que valida la identidad del vendedor antes de transferir. Pie desde 20%, plazo hasta 60 meses, transferencia en 1 día.</p>
+
+    <ul class="checklist">
+      <li>
+        <div class="check-icon">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        Validamos al vendedor — identidad, auto y titularidad
+      </li>
+      <li>
+        <div class="check-icon">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        Pie desde 20%, hasta 60 meses, sin acreditar ingresos
+      </li>
+      <li>
+        <div class="check-icon">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        Ejecutiva real · proceso 100% digital · transferencia en 1 día
+      </li>
+    </ul>
+
+    <div class="cta-row">
+      <a href="#" class="btn-cta">Simula tu crédito →</a>
+      <div class="trust-badge">
+        <span class="stars">★★★★★</span>
+        <span>4,9 · +1.750 créditos aprobados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Imagen ejecutiva -->
+  <div class="hero-img">
+    <div class="ejecutiva-placeholder">
+      <svg class="ejecutiva-svg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="opacity:0.08;">
+        <ellipse cx="100" cy="80" rx="45" ry="50" fill="#fff"/>
+        <rect x="55" y="130" width="90" height="160" rx="10" fill="#fff"/>
+        <rect x="20" y="140" width="40" height="100" rx="8" fill="#eee"/>
+        <rect x="140" y="140" width="40" height="100" rx="8" fill="#eee"/>
+        <rect x="65" y="290" width="30" height="100" rx="6" fill="#ddd"/>
+        <rect x="105" y="290" width="30" height="100" rx="6" fill="#ddd"/>
+      </svg>
+      <span class="img-label" style="color:#445;">[foto ejecutiva]</span>
+    </div>
+  </div>
+
+  <!-- Widget -->
+  <div class="hero-widget">
+    <div class="widget-card">
+      <div class="widget-title">Simula en 1 minuto</div>
+      <div class="widget-subtitle">Sin compromiso · 100% digital · Ejecutiva real te responde</div>
+      <div class="widget-hint">Pie desde 20% · hasta 60 meses</div>
+      <ul class="widget-features">
+        <li>Sin acreditar ingresos</li>
+        <li>Respuesta en el día</li>
+        <li>Verificación del vendedor incluida</li>
+      </ul>
+      <button class="widget-btn">Simula tu crédito entre particulares →</button>
+    </div>
+  </div>
+</div>
+
+<div class="legal" style="background:#1a1a2e; border-top-color:#334; color:#445;">
+  <span>Sujeto a evaluación crediticia. UNIDAD® nunca solicita transferencias de dinero.</span>
+  <span>unidadcreditos.cl</span>
+</div>
+
+</body>
+</html>
