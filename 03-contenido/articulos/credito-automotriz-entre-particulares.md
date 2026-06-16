@@ -25,7 +25,7 @@ Sirve para tres situaciones típicas:
 
 ## ¿Cómo funciona? Paso a paso
 
-1. **Acuerdo de precio.** Comprador y vendedor acuerdan el valor del auto. Luego un Ejecutivo Financiero de UNIDAD® te entrega las condiciones: tasa, plazo, valor de la cuota y fecha de pago.
+1. **Acuerdo de precio.** Comprador y vendedor acuerdan el valor del auto. Luego una ejecutiva de UNIDAD® te entrega las condiciones: tasa, plazo, valor de la cuota y fecha de pago.
 2. **Solicitud y evaluación.** Postulas el crédito con tu documentación (identificación, comprobante de ingresos y de domicilio). UNIDAD® evalúa tu capacidad de pago **y** el estado legal del vehículo.
 3. **Aprobación y firma.** Si se aprueba, firmas el contrato de crédito con las condiciones acordadas. El proceso es **100% digital**.
 4. **Pago seguro.** El **pie lo pagas directo al vendedor**. El **saldo** se paga al vendedor (vía vale vista o transferencia electrónica) **una vez transferido el vehículo** en el Registro Civil.
@@ -74,7 +74,7 @@ Sí. El crédito entre particulares aplica aunque conozcas al vendedor.
 Directo al vendedor. UNIDAD® nunca solicita el pie ni transferencias a su nombre.
 
 **¿Qué pasa si el auto todavía está en prenda?**
-No se puede transferir hasta que se realice el alzamiento de prenda. Hay que regularizar esa deuda antes de la compra; el Ejecutivo Financiero te orienta en el proceso.
+No se puede transferir hasta que se realice el alzamiento de prenda. Hay que regularizar esa deuda antes de la compra; una ejecutiva te orienta en el proceso.
 
 **¿Necesito acreditar ingresos?**
 Para el Clásico e Inteligente, sí. El **Instantáneo** no requiere acreditar ingresos (con mayor pie).
@@ -84,8 +84,8 @@ La transferencia y el financiamiento pueden completarse en 1 día una vez aproba
 
 ## Da el primer paso hoy
 
-Si ya tienes el auto en la mira, **simula tu crédito automotriz entre particulares** y habla con una ejecutiva real para revisar tu caso.
+Si ya tienes el auto en la mira, **habla con una ejecutiva UNIDAD** para revisar tu caso y conocer las condiciones reales.
 
-> **[Simular mi crédito]** · **[Hablar por WhatsApp con una ejecutiva]**
+> **[Habla con una ejecutiva]** · **[Hablar por WhatsApp con una ejecutiva]**
 
 *Condiciones referenciales y sujetas a evaluación. UNIDAD® Crédito Automotriz. Sitio oficial: unidadcreditos.cl.*

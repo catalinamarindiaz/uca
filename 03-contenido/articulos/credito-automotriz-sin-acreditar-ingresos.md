@@ -1,6 +1,6 @@
 ---
 title: "Crédito Automotriz Sin Acreditar Ingresos | UNIDAD®"
-meta_description: "¿Trabajas independiente y no tienes liquidaciones? Con el Crédito Instantáneo de UNIDAD® puedes financiar tu auto sin acreditar ingresos. Simula en minutos."
+meta_description: "¿Trabajas independiente y no tienes liquidaciones? Con el Crédito Instantáneo de UNIDAD® puedes financiar tu auto sin acreditar ingresos. Habla con una ejecutiva."
 slug: /credito-automotriz-sin-acreditar-ingresos
 keyword_principal: crédito automotriz sin acreditar ingresos
 cluster: 2 - sin acreditar ingresos
@@ -11,7 +11,7 @@ disclaimer: "Condiciones referenciales, sujetas a evaluación. UNIDAD® nunca pi
 
 # Crédito automotriz sin acreditar ingresos: opciones para independientes
 
-Si eres **trabajador independiente**, comerciante, repartidor de apps o tienes ingresos reales pero **sin liquidaciones de sueldo**, sabes lo difícil que puede ser conseguir un **crédito automotriz** en el mercado tradicional. En UNIDAD® existe una alternativa pensada para ese perfil: el **Crédito Instantáneo**, que **no requiere acreditar ingresos** y se gestiona 100% digital con una ejecutiva real que te acompaña.
+Si eres **trabajador independiente**, comerciante, profesional a honorarios o tienes ingresos reales pero **sin liquidaciones de sueldo**, sabes lo difícil que puede ser conseguir un **crédito automotriz** en el mercado tradicional. En UNIDAD® existe una alternativa pensada para ese perfil: el **Crédito Instantáneo**, que **no requiere acreditar ingresos** y se gestiona 100% digital con una ejecutiva real que te acompaña.
 
 ## ¿Por qué cuesta acreditar ingresos siendo independiente?
 
@@ -58,13 +58,13 @@ Si **sí puedes acreditar ingresos**, el **Crédito Clásico** (pie desde 20%) o
 Este producto encaja especialmente con:
 
 - **Comerciantes** y dueños de negocio informal.
-- **App-drivers** (transporte, delivery) con ingresos variables.
-- **Freelancers** o profesionales independientes.
+- **Profesionales a honorarios** o por proyectos.
+- **Freelancers** o trabajadores independientes.
 - Quienes fueron **rechazados** por no tener liquidaciones, pero tienen capacidad de pago y pueden aportar **mayor pie**.
 
 ## Paso a paso para postular
 
-1. **Simula tu crédito** en unidadcreditos.cl con el monto del auto y el pie que puedes aportar.
+1. **Habla con una ejecutiva** en unidadcreditos.cl con el monto del auto y el pie que puedes aportar.
 2. **Conversa con una ejecutiva** (WhatsApp/chat) para confirmar si el Instantáneo es la mejor opción.
 3. **Envía tu documentación** básica para evaluación.
 4. **Recibe tu oferta** con tasa, plazo y valor de cuota (sujeto a evaluación).
@@ -91,8 +91,8 @@ Puedes consultar con una ejecutiva si otro producto (Clásico, con acreditación
 
 ## Da el primer paso hoy
 
-Si trabajas por tu cuenta y necesitas un auto, **simula tu crédito automotriz** y pregunta por el **Crédito Instantáneo** — sin promesas de aprobación, pero con un camino claro.
+Si trabajas por tu cuenta y necesitas un auto, **habla con una ejecutiva UNIDAD** y pregunta por el **Crédito Instantáneo** — sin promesas de aprobación, pero con un camino claro.
 
-> **[Simular mi crédito]** · **[Hablar por WhatsApp con una ejecutiva]**
+> **[Habla con una ejecutiva]** · **[Hablar por WhatsApp con una ejecutiva]**
 
 *Condiciones referenciales y sujetas a evaluación. UNIDAD® Crédito Automotriz. Sitio oficial: unidadcreditos.cl.*

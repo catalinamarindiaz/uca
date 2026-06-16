@@ -26,7 +26,7 @@ En este artículo encontrarás los precios actualizados del Sail por año y vers
 
 ## ¿Por qué el Chevrolet Sail es tan popular en el mercado de autos usados?
 
-El Sail llegó a Chile en 2012 y desde entonces se consolidó como el sedán urbano de presupuesto más vendido del país. Ofrece un consumo promedio de 14–16 km/litro en ciudad, tiene amplia red de mantención y sus repuestos son fáciles de conseguir y a buen precio. Todo eso lo hace especialmente atractivo para quienes buscan su primer auto o un segundo vehículo familiar sin gastar demasiado.
+El Sail llegó a Chile en 2012 y desde entonces se consolidó como el sedán urbano de presupuesto más vendido del país. Ofrece un rendimiento mixto de 14–15 km/litro (en ciudad real ~10-11 km/litro), tiene amplia red de mantención y sus repuestos son fáciles de conseguir y a buen precio. Todo eso lo hace especialmente atractivo para quienes buscan su primer auto o un segundo vehículo familiar sin gastar demasiado.
 
 ---
 
@@ -106,14 +106,13 @@ Con UNIDAD, el proceso funciona así:
 
 Por ejemplo, para un **Sail 2024 LTZ CVT a $10.600.000** (precio promedio Chileautos.cl, junio 2026):
 - Pie 20% = $2.120.000 (pagas tú al vendedor)
-- Monto financiado: $8.480.000
-- A 48 meses, la cuota de referencia es aproximadamente $245.000–$265.000 mensuales (según tasa vigente)
+- Monto financiado: **$8.480.000** (saldo que financia UNIDAD)
 
-Si prefieres un plazo más corto, a 36 meses la cuota sube a aproximadamente $300.000–$320.000, pero pagas menos intereses en total.
+La cuota mensual depende de la tasa aprobada según tu perfil crediticio. Habla con una ejecutiva UNIDAD para conocer las condiciones exactas para tu caso.
 
-> *Valores referenciales. Cuota sujeta a evaluación crediticia y tasa vigente al momento de la solicitud.*
+> *Condiciones sujetas a evaluación crediticia. UNIDAD® no garantiza aprobación.*
 
-[Simula tu cuota con crédito automotriz](/simula-credito-automotriz) — ingresa el valor del Sail que encontraste y elige el plazo que más te acomoda.
+[Habla con una ejecutiva UNIDAD](/simula-credito-automotriz) — cuéntale el valor del Sail y el pie que puedes pagar, y ella te entrega las condiciones reales.
 
 ---
 
@@ -125,7 +124,7 @@ Sí. El Sail mantiene una demanda constante en el mercado de usados chileno, lo 
 
 ### ¿Cuánto gasta de bencina el Chevrolet Sail?
 
-El Sail 1.4 y 1.5 tiene un consumo promedio de **14 a 16 km por litro** en ciudad y hasta 18 km/litro en ruta. Es uno de los autos más económicos en combustible de su categoría.
+El Sail 1.5 tiene un rendimiento **mixto de 14–15 km/litro** (combinado ciudad/ruta). En ciudad el consumo real ronda los **10–11 km/litro**; en ruta puede llegar a **18–19 km/litro**. Es uno de los autos más económicos en combustible de su categoría. Fuente: Autocosmos.cl — ficha Sail 1.5 LTZ 2025.
 
 ### ¿Se puede financiar un Sail comprado a un particular?
 
@@ -139,9 +138,9 @@ Depende de tu presupuesto. Un Sail 2016 o 2017 en buen estado ofrece un equilibr
 
 ## ¿Encontraste tu Sail? Da el siguiente paso
 
-Si ya tienes el auto a la vista, el paso siguiente es saber si calificas para el crédito y cuánto pagarías de cuota.
+Si ya tienes el auto a la vista, el paso siguiente es hablar con una ejecutiva UNIDAD para revisar si calificas y cuánto sería tu cuota según tu perfil.
 
-[Simula tu crédito automotriz](/simula-credito-automotriz) con el valor del Sail que encontraste y el pie que puedes pagar. En minutos tienes una referencia y puedes continuar el proceso con una ejecutiva.
+[Habla con una ejecutiva UNIDAD](/simula-credito-automotriz) — cuéntale el valor del Sail y el pie que puedes pagar. Te entrega las condiciones reales para tu caso, sin compromiso.
 
 ---
 
