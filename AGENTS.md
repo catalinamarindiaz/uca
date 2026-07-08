@@ -44,5 +44,17 @@ Financiera chilena de **crédito automotriz**, diferenciada en **crédito entre 
 - Entregables generados van en `01-inteligencia-mercado/outputs/` (los `.json` están en `.gitignore`).
 - Ver `CONTRIBUTING.md` para el detalle del flujo de GitHub.
 
+## Estilo de titulares y estructura de artículos
+
+- **Estructura:** 1 solo H1 (título del artículo) y 1 solo H2 por artículo. No usar múltiples H2 ni H3/H4. Las secciones intermedias deben estructurarse con texto corrido, listas o negritas de apertura de párrafo, no con subtítulos adicionales.
+- **Tono de H2:** Usar preguntas naturales o frases descriptivas. **Prohibido** usar "En resumen" o "Conclusión" — reemplazar por pregunta o afirmación que invite a la acción.
+- **Negritas:** Solo para texto que además sea un enlace a otra página. No usar negritas en medio de una frase sin enlace.
+- **Título de navegador (campo `title` en front-matter):** 30 a 50 caracteres.
+- **Meta descripción (campo `meta`):** 125 a 145 caracteres.
+- **Resumen de homepage (campo `resumen`):** máximo 200 caracteres. Se muestra en el home y listados del blog. Debe enganchar al lector en una o dos frases.
+- **Tiempo de lectura (campo `tiempo_lectura`):** calcular como `ceil(palabras_del_artículo / 250)` y expresar como `"X min"`. Contar palabras con `wc -w` sobre el archivo final.
+- **Imagen del artículo:** cada artículo requiere **2 alternativas de imagen** generadas en Canva. Estilo: fotografía realista y periodística, solo fotografía — sin texto sobre la imagen, sin logos ni marcas. Presentar ambas alternativas para que el equipo elija. Incluir campo `texto_alternativo_imagen` en el front-matter (alt text = keyword principal).
+- **Campo `cluster` del front-matter:** usar una de las **4 categorías del blog** publicadas en la web (no los clusters internos de keywords de `02-estrategia/`): [Conducción](https://www.unidadcreditos.cl/etiquetas-blog/conduccion), [Crédito Automotriz](https://www.unidadcreditos.cl/etiquetas-blog/credito-automotriz), [Autos Usados](https://www.unidadcreditos.cl/etiquetas-blog/auto-usado), [Comprar Auto](https://www.unidadcreditos.cl/etiquetas-blog/compra-y-venta).
+
 ## Para Claude / otros asistentes
 Este repo no requiere build. Python 3.8+ con biblioteca estándar para los scripts (sin dependencias salvo `pytrends` opcional, en `requirements.txt`). Respeta las reglas de arriba y la estructura de carpetas al crear archivos.
