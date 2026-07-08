@@ -104,7 +104,7 @@ Como ejemplo de cómo funciona el sistema, SERNAC publicó el 2 de julio de 2026
 
 El defecto: el reposacabezas de la segunda fila puede no bloquearse en posición vertical, aumentando el riesgo de lesiones ante un impacto. La reparación es **gratuita**, con una duración estimada de 1,5 horas en el servicio técnico autorizado.
 
-Si tienes o vas a comprar un Jeep de esos modelos y años, puedes verificar tu VIN en el listado oficial: [sernac.cl — Alerta Jeep Grand Cherokee 2026](https://www.sernac.cl/portal/619/w3-article-88917.html).
+Si tienes o vas a comprar un Jeep de esos modelos y años, puedes verificar tu VIN llamando directamente a Stellantis Chile al 800 380 216 (código SERNAC: 26114V01).
 
 ---
 
