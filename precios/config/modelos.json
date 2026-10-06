@@ -1,6 +1,5 @@
 {
-  "_nota": "Automatización de precios para UNIDAD. Solo Fronx en producción.",
-  "control_tasacion_pct": 0.80,
+  "_nota": "Automatización de precios para UNIDAD. Solo Fronx.",
   "min_avisos_validos": 2,
   "modelos": [
     {
@@ -9,10 +8,7 @@
       "marca": "suzuki",
       "modelo": "fronx",
       "palabra_obligatoria": "fronx",
-      "anios": {
-        "2024": {"tasacion_sii_min": 0},
-        "2025": {"tasacion_sii_min": 0}
-      }
+      "anios": ["2024", "2025"]
     }
   ]
 }
