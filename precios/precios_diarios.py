@@ -98,6 +98,18 @@ def _filtrar_plausibles(avisos):
     return [a for a in avisos if PRECIO_MIN_PLAUSIBLE <= a["precio"] <= PRECIO_MAX_PLAUSIBLE]
 
 
+def _esperar_cloudflare(page, intentos=6, espera_ms=1500):
+    """Si Cloudflare muestra la pagina intermedia "Just a moment...",
+    espera a que termine su verificacion automatica (normalmente toma unos
+    segundos) en vez de seguir de inmediato. No hace nada si la pagina ya
+    cargo normal."""
+    for _ in range(intentos):
+        titulo = (page.title() or "").lower()
+        if "just a moment" not in titulo and "moment" not in titulo:
+            return
+        page.wait_for_timeout(espera_ms)
+
+
 def _diagnosticar_pagina_vacia(page, nombre_sitio):
     """Si no se encontro ningun aviso, imprime pistas sobre por que: titulo
     de la pagina y un fragmento del texto visible. Esto ayuda a distinguir
@@ -117,6 +129,7 @@ def extraer_avisos_chileautos(page, marca, modelo, anio):
     url = f"https://www.chileautos.cl/vehiculos/usado-tipo/{marca}/{modelo}/{anio}-ano/?sort=~Price"
     page.goto(url, timeout=30000, wait_until="domcontentloaded")
     page.wait_for_timeout(2000)
+    _esperar_cloudflare(page)
     avisos = page.evaluate(EXTRAER_JS, "/vehiculos/detalles/")
     avisos = _filtrar_plausibles(avisos)
     if not avisos:
@@ -131,6 +144,7 @@ def extraer_avisos_yapo(page, marca, modelo, anio):
     url = f"https://www.yapo.cl/autos-usados/{marca}/{modelo}"
     page.goto(url, timeout=30000, wait_until="domcontentloaded")
     page.wait_for_timeout(3000)  # Yapo carga los avisos via JS, necesita tiempo extra
+    _esperar_cloudflare(page)
     avisos = page.evaluate(EXTRAER_JS, "/autos-usados/")
     avisos = [a for a in avisos if a.get("anio") == str(anio)]
     avisos = _filtrar_plausibles(avisos)
@@ -181,9 +195,24 @@ def main():
     exit_code = 0
 
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        # Chileautos y Yapo usan Cloudflare para bloquear navegadores "robot".
+        # Estos flags y el script de abajo hacen que el navegador headless se
+        # parezca mas a uno real (el detector de Cloudflare mira sobre todo
+        # navigator.webdriver, el modo headless real, y el idioma/zona horaria).
+        browser = p.chromium.launch(
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--disable-dev-shm-usage",
+            ]
+        )
         page = browser.new_page(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+            viewport={"width": 1366, "height": 768},
+            locale="es-CL",
+            timezone_id="America/Santiago",
+        )
+        page.add_init_script(
+            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
         )
 
         for mod in cfg["modelos"]:
