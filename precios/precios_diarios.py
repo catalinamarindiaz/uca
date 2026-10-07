@@ -66,6 +66,12 @@ HOY = datetime.now(timezone(timedelta(hours=-3))).date().isoformat()
 PRECIO_MIN_PLAUSIBLE = 3_000_000
 PRECIO_MAX_PLAUSIBLE = 40_000_000
 
+# Si no hay avisos suficientes, se reintenta en la misma corrida antes de
+# avisar por correo (muchos bloqueos de Cloudflare son temporales y se
+# resuelven solos en un rato).
+MAX_REINTENTOS = 3
+ESPERA_REINTENTO_MIN = 5
+
 # JS que corre DENTRO de la pagina. Devuelve lista de {precio, transmision, href}.
 # linkPattern decide que prefijo de href cuenta como "el link de un aviso".
 EXTRAER_JS = """
@@ -244,32 +250,44 @@ def main():
                 clave = f"{mod['id']}|{anio}"
                 print(f"\n[{clave}]")
 
-                try:
-                    avisos_chile = extraer_avisos_chileautos(page, mod["marca"], mod["modelo"], anio)
-                except Exception as e:
-                    print(f"  ERROR Chileautos: {e}")
-                    avisos_chile = []
+                categorias = None
+                for intento in range(1, MAX_REINTENTOS + 1):
+                    print(f"  Intento {intento}/{MAX_REINTENTOS}...")
 
-                try:
-                    avisos_yapo = extraer_avisos_yapo(page, mod["marca"], mod["modelo"], anio)
-                except Exception as e:
-                    print(f"  ERROR Yapo: {e}")
-                    avisos_yapo = []
+                    try:
+                        avisos_chile = extraer_avisos_chileautos(page, mod["marca"], mod["modelo"], anio)
+                    except Exception as e:
+                        print(f"  ERROR Chileautos: {e}")
+                        avisos_chile = []
 
-                print(f"  Chileautos: {len(avisos_chile)} avisos | Yapo: {len(avisos_yapo)} avisos")
+                    try:
+                        avisos_yapo = extraer_avisos_yapo(page, mod["marca"], mod["modelo"], anio)
+                    except Exception as e:
+                        print(f"  ERROR Yapo: {e}")
+                        avisos_yapo = []
 
-                todos = avisos_chile + avisos_yapo
-                categorias = calcular_categorias(todos, min_avisos)
+                    print(f"  Chileautos: {len(avisos_chile)} avisos | Yapo: {len(avisos_yapo)} avisos")
+
+                    todos = avisos_chile + avisos_yapo
+                    categorias = calcular_categorias(todos, min_avisos)
+
+                    if categorias is not None:
+                        break
+
+                    if intento < MAX_REINTENTOS:
+                        print(f"  Avisos insuficientes, reintentando en {ESPERA_REINTENTO_MIN} minutos...")
+                        page.wait_for_timeout(ESPERA_REINTENTO_MIN * 60 * 1000)
 
                 if categorias is None:
-                    print(f"  SIN ACTUALIZAR: solo {len(todos)} avisos validos (minimo {min_avisos}). Se mantiene el valor anterior.")
+                    print(f"  SIN ACTUALIZAR tras {MAX_REINTENTOS} intentos: solo {len(todos)} avisos validos (minimo {min_avisos}). Se mantiene el valor anterior.")
                     exit_code = 1
                     url_articulo = UNIDAD_BASE_URL + mod.get("articulo", "")
                     enviar_alerta(
                         asunto=f"Precios Fronx: no se pudo actualizar {clave} - {url_articulo}",
                         cuerpo=(
                             f"El script de precios no encontro suficientes avisos validos hoy "
-                            f"({HOY}) para {clave}.\n\n"
+                            f"({HOY}) para {clave}, despues de {MAX_REINTENTOS} intentos "
+                            f"separados por {ESPERA_REINTENTO_MIN} minutos cada uno.\n\n"
                             f"Chileautos: {len(avisos_chile)} avisos\n"
                             f"Yapo: {len(avisos_yapo)} avisos\n"
                             f"Total validos: {len(todos)} (minimo requerido: {min_avisos})\n\n"
