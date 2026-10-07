@@ -98,12 +98,30 @@ def _filtrar_plausibles(avisos):
     return [a for a in avisos if PRECIO_MIN_PLAUSIBLE <= a["precio"] <= PRECIO_MAX_PLAUSIBLE]
 
 
+def _diagnosticar_pagina_vacia(page, nombre_sitio):
+    """Si no se encontro ningun aviso, imprime pistas sobre por que: titulo
+    de la pagina y un fragmento del texto visible. Esto ayuda a distinguir
+    un bloqueo anti-bot (Cloudflare, "verifica que eres humano", etc.) de
+    un simple cambio de estructura del sitio."""
+    try:
+        titulo = page.title()
+        texto = page.evaluate("document.body ? document.body.innerText.slice(0, 300) : ''")
+        print(f"  DIAGNOSTICO {nombre_sitio}: titulo='{titulo}'")
+        print(f"  DIAGNOSTICO {nombre_sitio}: primeros 300 caracteres del body:")
+        print(f"    {texto!r}")
+    except Exception as e:
+        print(f"  DIAGNOSTICO {nombre_sitio}: no se pudo inspeccionar la pagina: {e}")
+
+
 def extraer_avisos_chileautos(page, marca, modelo, anio):
     url = f"https://www.chileautos.cl/vehiculos/usado-tipo/{marca}/{modelo}/{anio}-ano/?sort=~Price"
     page.goto(url, timeout=30000, wait_until="domcontentloaded")
     page.wait_for_timeout(2000)
     avisos = page.evaluate(EXTRAER_JS, "/vehiculos/detalles/")
-    return _filtrar_plausibles(avisos)
+    avisos = _filtrar_plausibles(avisos)
+    if not avisos:
+        _diagnosticar_pagina_vacia(page, "Chileautos")
+    return avisos
 
 
 def extraer_avisos_yapo(page, marca, modelo, anio):
@@ -115,7 +133,10 @@ def extraer_avisos_yapo(page, marca, modelo, anio):
     page.wait_for_timeout(3000)  # Yapo carga los avisos via JS, necesita tiempo extra
     avisos = page.evaluate(EXTRAER_JS, "/autos-usados/")
     avisos = [a for a in avisos if a.get("anio") == str(anio)]
-    return _filtrar_plausibles(avisos)
+    avisos = _filtrar_plausibles(avisos)
+    if not avisos:
+        _diagnosticar_pagina_vacia(page, "Yapo")
+    return avisos
 
 
 def calcular_categorias(avisos, min_avisos_validos):
