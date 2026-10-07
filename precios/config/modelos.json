@@ -1,6 +1,7 @@
 {
   "_nota": "Automatización de precios para UNIDAD. Solo Fronx.",
   "min_avisos_validos": 2,
+  "min_avisos_por_fuente": 2,
   "modelos": [
     {
       "id": "suzuki-fronx",
