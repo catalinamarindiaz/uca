@@ -1,0 +1,23 @@
+# Los conectores de 04-conectores/scripts/ usan SOLO la biblioteca estandar.
+# No se requiere instalar nada para el funcionamiento principal.
+#
+# Dependencia OPCIONAL (solo si usas el conector pytrends en tendencias.py):
+#   pip install -r requirements.txt
+pytrends>=4.9.2
+
+# Dependencia OPCIONAL (solo para 04-conectores/scripts/optimizar_imagenes.py):
+#   genera versiones web (WebP/JPG responsive) de imagenes para Webflow/landing.
+Pillow>=10.0.0
+
+# Dependencia OPCIONAL (solo para optimizar_imagenes.py --quitar-fondo):
+#   recorta el sujeto y deja fondo transparente (modelo U2Net; descarga ~170 MB la 1a vez).
+rembg>=2.0.50
+onnxruntime>=1.16.0
+
+# Dependencia REQUERIDA para precios/precios_diarios.py:
+#   Yapo.cl carga los precios via JavaScript (no estan en el HTML inicial),
+#   por lo que un simple urllib/requests no los puede leer. Playwright abre
+#   un navegador real y lee el contenido ya renderizado. Despues de instalar
+#   el paquete, hay que instalar el navegador una vez con:
+#     playwright install chromium --with-deps
+playwright>=1.47.0
