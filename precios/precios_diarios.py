@@ -37,6 +37,30 @@ CONFIG = os.path.join(BASE, "config", "modelos.json")
 DATA = os.path.join(BASE, "data")
 ULTIMO = os.path.join(DATA, "ultimo.json")
 
+ALERTA_EMAIL = "catalinamarin@skalling.com"
+UNIDAD_BASE_URL = "https://www.unidadcreditos.cl"
+
+
+def enviar_alerta(asunto, cuerpo):
+    """Manda un correo via Outlook (usa la cuenta ya logueada en este
+    computador, sin necesitar ninguna contraseña nueva). Si Outlook no
+    esta instalado o falla, solo lo imprime en pantalla -- nunca detiene
+    el script por esto."""
+    try:
+        import win32com.client  # type: ignore
+
+        outlook = win32com.client.Dispatch("Outlook.Application")
+        mail = outlook.CreateItem(0)
+        mail.To = ALERTA_EMAIL
+        mail.Subject = asunto
+        mail.Body = cuerpo
+        mail.Send()
+        print(f"  Alerta enviada por correo a {ALERTA_EMAIL}")
+    except Exception as e:
+        print(f"  No se pudo enviar la alerta por correo ({e}). Aviso solo queda en este log:")
+        print(f"  ASUNTO: {asunto}")
+        print(f"  CUERPO: {cuerpo}")
+
 HOY = datetime.now(timezone(timedelta(hours=-3))).date().isoformat()
 
 PRECIO_MIN_PLAUSIBLE = 3_000_000
@@ -240,6 +264,18 @@ def main():
                 if categorias is None:
                     print(f"  SIN ACTUALIZAR: solo {len(todos)} avisos validos (minimo {min_avisos}). Se mantiene el valor anterior.")
                     exit_code = 1
+                    url_articulo = UNIDAD_BASE_URL + mod.get("articulo", "")
+                    enviar_alerta(
+                        asunto=f"Precios Fronx: no se pudo actualizar {clave} - {url_articulo}",
+                        cuerpo=(
+                            f"El script de precios no encontro suficientes avisos validos hoy "
+                            f"({HOY}) para {clave}.\n\n"
+                            f"Chileautos: {len(avisos_chile)} avisos\n"
+                            f"Yapo: {len(avisos_yapo)} avisos\n"
+                            f"Total validos: {len(todos)} (minimo requerido: {min_avisos})\n\n"
+                            f"Se mantuvo el ultimo precio valido. Articulo: {url_articulo}"
+                        ),
+                    )
                     continue
 
                 ultimo[clave] = categorias
