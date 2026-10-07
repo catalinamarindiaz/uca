@@ -1,12 +1,11 @@
 name: Actualizar precios diarios Fronx
 
 on:
-  schedule:
-    # 10:00 UTC = 07:00 Chile en horario de verano (UTC-3).
-    # En horario estandar de Chile (UTC-4, normalmente abr-sep) esto
-    # corre a las 06:00 Chile en vez de las 07:00 -- limitacion conocida
-    # de cron en GitHub Actions (no soporta zonas horarias con DST).
-    - cron: "0 10 * * *"
+  # SIN cron automatico: Chileautos y Yapo bloquean las IPs de los
+  # servidores de GitHub (Cloudflare anti-bot), confirmado el 2026-10-07.
+  # La actualizacion diaria real corre desde el computador de Cata
+  # (tarea programada de Windows). Este workflow queda solo como respaldo
+  # manual por si se prueba desde otra red que si pueda acceder.
   workflow_dispatch: {}
 
 permissions:
