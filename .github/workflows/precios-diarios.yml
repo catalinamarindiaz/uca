@@ -1,0 +1,55 @@
+name: Actualizar precios diarios Fronx
+
+on:
+  schedule:
+    # 10:00 UTC = 07:00 Chile en horario de verano (UTC-3).
+    # En horario estandar de Chile (UTC-4, normalmente abr-sep) esto
+    # corre a las 06:00 Chile en vez de las 07:00 -- limitacion conocida
+    # de cron en GitHub Actions (no soporta zonas horarias con DST).
+    - cron: "0 10 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar-precios:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install playwright
+
+      - name: Instalar navegador de Playwright
+        run: playwright install chromium --with-deps
+
+      - name: Extraer precios
+        id: extraer
+        # El script sale con codigo 1 si alguna categoria no tuvo avisos
+        # suficientes (pero igual guarda las que si pudo actualizar).
+        # continue-on-error para que el commit de abajo no se salte por eso.
+        continue-on-error: true
+        run: python precios/precios_diarios.py
+
+      - name: Marcar el run como fallido si el script fallo de verdad
+        if: steps.extraer.outcome == 'failure'
+        run: echo "::warning::El script termino con avisos insuficientes para alguna categoria. Revisar logs arriba."
+
+      - name: Guardar resultado (commit solo si hubo cambios)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add precios/data/ultimo.json
+          if git diff --staged --quiet; then
+            echo "Sin cambios en los precios."
+          else
+            git commit -m "chore: actualiza precios Fronx $(date -u +%Y-%m-%d)"
+            git push
+          fi
